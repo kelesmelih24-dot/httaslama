@@ -25,7 +25,7 @@ export default function Navbar({ phone }: { phone: string }) {
   const [moreOpen, setMoreOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b-2 border-spark bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5 font-display text-xl font-bold tracking-wide">
           <Logo className="h-9 w-9 shrink-0" />
