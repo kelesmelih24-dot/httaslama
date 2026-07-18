@@ -6,6 +6,16 @@ import { sendTelegramMessage } from "@/lib/telegram";
 
 type ActionResult = { ok: true } | { ok: false; error: string };
 
+/**
+ * Basit spam/bot koruması: forma gizli bir "website" alanı eklenir (gerçek
+ * kullanıcılar göremez/dolduramaz). Bot bu alanı doldurursa istek sessizce
+ * yok sayılır — botu şüphelendirmemek için yine de "başarılı" dönülür.
+ */
+function isBot(formData: FormData): boolean {
+  const honeypot = formData.get("website");
+  return typeof honeypot === "string" && honeypot.trim().length > 0;
+}
+
 const quoteSchema = z.object({
   full_name: z.string().min(2, "Ad soyad gerekli"),
   company_name: z.string().optional(),
@@ -15,12 +25,14 @@ const quoteSchema = z.object({
   material: z.string().optional(),
   quantity: z.coerce.number().int().positive().optional(),
   delivery_date: z.string().optional(),
+  budget_range: z.string().optional(),
+  preferred_contact: z.string().optional(),
   description: z.string().min(10, "Lütfen işi biraz daha detaylandırın"),
 });
 
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
 
-async function uploadQuoteFile(file: File | null): Promise<string | null> {
+async function uploadFile(file: File | null): Promise<string | null> {
   if (!file || file.size === 0) return null;
   if (file.size > MAX_FILE_BYTES) {
     throw new Error("Dosya çok büyük (maksimum 10 MB).");
@@ -40,6 +52,8 @@ async function uploadQuoteFile(file: File | null): Promise<string | null> {
 }
 
 export async function submitQuote(formData: FormData): Promise<ActionResult> {
+  if (isBot(formData)) return { ok: true };
+
   const parsed = quoteSchema.safeParse({
     full_name: formData.get("full_name"),
     company_name: formData.get("company_name") || "",
@@ -49,6 +63,8 @@ export async function submitQuote(formData: FormData): Promise<ActionResult> {
     material: formData.get("material") || "",
     quantity: formData.get("quantity") || undefined,
     delivery_date: formData.get("delivery_date") || "",
+    budget_range: formData.get("budget_range") || "",
+    preferred_contact: formData.get("preferred_contact") || "",
     description: formData.get("description"),
   });
 
@@ -58,7 +74,7 @@ export async function submitQuote(formData: FormData): Promise<ActionResult> {
 
   let fileUrl: string | null = null;
   try {
-    fileUrl = await uploadQuoteFile(formData.get("file") as File | null);
+    fileUrl = await uploadFile(formData.get("file") as File | null);
   } catch (err: any) {
     return { ok: false, error: err.message || "Dosya yüklenemedi." };
   }
@@ -73,6 +89,8 @@ export async function submitQuote(formData: FormData): Promise<ActionResult> {
     material: parsed.data.material || null,
     quantity: parsed.data.quantity || null,
     delivery_date: parsed.data.delivery_date || null,
+    budget_range: parsed.data.budget_range || null,
+    preferred_contact: parsed.data.preferred_contact || null,
     file_url: fileUrl,
     description: parsed.data.description,
   });
@@ -86,10 +104,12 @@ export async function submitQuote(formData: FormData): Promise<ActionResult> {
     `🔥 <b>Yeni Teklif Talebi</b>\n` +
       `👤 ${parsed.data.full_name}${parsed.data.company_name ? ` (${parsed.data.company_name})` : ""}\n` +
       `📞 ${parsed.data.phone}\n` +
+      (parsed.data.preferred_contact ? `☎️ Tercih: ${parsed.data.preferred_contact}\n` : "") +
       (parsed.data.service_type ? `🛠 ${parsed.data.service_type}\n` : "") +
       (parsed.data.material ? `⚙️ Malzeme: ${parsed.data.material}\n` : "") +
       (parsed.data.quantity ? `🔢 Adet: ${parsed.data.quantity}\n` : "") +
       (parsed.data.delivery_date ? `📅 Teslim tarihi: ${parsed.data.delivery_date}\n` : "") +
+      (parsed.data.budget_range ? `💰 Bütçe: ${parsed.data.budget_range}\n` : "") +
       (fileUrl ? `📎 Dosya: ${fileUrl}\n` : "") +
       `📝 ${parsed.data.description}`
   );
@@ -109,6 +129,8 @@ const preorderSchema = z.object({
 });
 
 export async function submitPreorder(formData: FormData): Promise<ActionResult> {
+  if (isBot(formData)) return { ok: true };
+
   const raw = {
     full_name: formData.get("full_name"),
     phone: formData.get("phone"),
@@ -124,6 +146,13 @@ export async function submitPreorder(formData: FormData): Promise<ActionResult> 
     return { ok: false, error: parsed.error.issues[0].message };
   }
 
+  let fileUrl: string | null = null;
+  try {
+    fileUrl = await uploadFile(formData.get("file") as File | null);
+  } catch (err: any) {
+    return { ok: false, error: err.message || "Dosya yüklenemedi." };
+  }
+
   const db = supabaseAdmin();
   const { error } = await db.from("preorders").insert({
     full_name: parsed.data.full_name,
@@ -134,6 +163,7 @@ export async function submitPreorder(formData: FormData): Promise<ActionResult> 
     material: parsed.data.material || null,
     quantity: parsed.data.quantity || null,
     preferred_date: parsed.data.preferred_date || null,
+    file_url: fileUrl,
   });
 
   if (error) {
@@ -145,6 +175,7 @@ export async function submitPreorder(formData: FormData): Promise<ActionResult> 
     `📦 <b>Yeni Ön Sipariş</b>\n` +
       `👤 ${parsed.data.full_name}\n` +
       `📞 ${parsed.data.phone}\n` +
+      (fileUrl ? `📎 Dosya: ${fileUrl}\n` : "") +
       `🗂 Kategori: ${parsed.data.category}\n` +
       (parsed.data.part_detail ? `🔩 Parça: ${parsed.data.part_detail}\n` : "") +
       (parsed.data.material ? `⚙️ Malzeme: ${parsed.data.material}\n` : "") +
@@ -162,6 +193,8 @@ const commentSchema = z.object({
 });
 
 export async function submitComment(formData: FormData): Promise<ActionResult> {
+  if (isBot(formData)) return { ok: true };
+
   const parsed = commentSchema.safeParse({
     name: formData.get("name"),
     message: formData.get("message"),

@@ -3,6 +3,7 @@
 import { useRef, useState, useTransition } from "react";
 import { CheckCircle2, Loader2, Star } from "lucide-react";
 import { submitComment } from "@/lib/actions/public";
+import HoneypotField from "@/components/site/HoneypotField";
 
 export default function CommentForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -35,6 +36,7 @@ export default function CommentForm() {
 
   return (
     <form ref={formRef} action={handleSubmit} className="spec-card space-y-4 rounded-sm p-7">
+      <HoneypotField />
       <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-metal">
         Yorum bırakın
       </h3>

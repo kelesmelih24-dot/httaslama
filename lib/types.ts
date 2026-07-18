@@ -29,6 +29,8 @@ export type Quote = {
   material: string | null;
   quantity: number | null;
   delivery_date: string | null;
+  budget_range: string | null;
+  preferred_contact: string | null;
   file_url: string | null;
   description: string;
   status: QuoteStatus;
@@ -47,6 +49,7 @@ export type Preorder = {
   material: string | null;
   quantity: number | null;
   preferred_date: string | null;
+  file_url: string | null;
   status: PreorderStatus;
   created_at: string;
 };
@@ -78,6 +81,7 @@ export type GalleryItem = {
   category: GalleryCategory;
   image_url: string;
   before_image_url: string | null;
+  video_url: string | null;
   order_index: number;
   created_at: string;
 };
@@ -113,4 +117,13 @@ export type AboutSettings = {
 export type HoursSettings = {
   hafta_ici_cumartesi: string;
   pazar: string;
+};
+
+export type StatsSettings = {
+  stat1_value: string;
+  stat1_label: string;
+  stat2_value: string;
+  stat2_label: string;
+  stat3_value: string;
+  stat3_label: string;
 };

@@ -4,6 +4,7 @@ import { useRef, useState, useTransition } from "react";
 import { CheckCircle2, Loader2, X, Zap } from "lucide-react";
 import { submitQuote } from "@/lib/actions/public";
 import type { Service } from "@/lib/types";
+import HoneypotField from "@/components/site/HoneypotField";
 
 export default function QuickQuotePopup({ services }: { services: Service[] }) {
   const [open, setOpen] = useState(false);
@@ -53,6 +54,7 @@ export default function QuickQuotePopup({ services }: { services: Service[] }) {
               </div>
             ) : (
               <form ref={formRef} action={handleSubmit} className="mt-5 space-y-3">
+                <HoneypotField />
                 <input name="full_name" required placeholder="Ad Soyad" className="input" />
                 <input name="phone" required placeholder="Telefon" type="tel" className="input" />
                 <select name="service_type" className="input">

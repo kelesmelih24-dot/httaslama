@@ -41,7 +41,8 @@ export async function getAdminSettings() {
   const content = data?.find((r) => r.key === "content")?.value || {};
   const about = data?.find((r) => r.key === "about")?.value || {};
   const hours = data?.find((r) => r.key === "hours")?.value || {};
-  return { contact, content, about, hours };
+  const stats = data?.find((r) => r.key === "stats")?.value || {};
+  return { contact, content, about, hours, stats };
 }
 
 export async function getAllGalleryAdmin(): Promise<GalleryItem[]> {
@@ -64,14 +65,51 @@ export async function getAllPostsAdmin(): Promise<Post[]> {
 
 export async function getDashboardCounts() {
   const db = supabaseAdmin();
-  const [q, p, c] = await Promise.all([
+  const [q, p, c, qTotal, qDone, pDone] = await Promise.all([
     db.from("quotes").select("id", { count: "exact", head: true }).eq("status", "yeni"),
     db.from("preorders").select("id", { count: "exact", head: true }).eq("status", "yeni"),
     db.from("comments").select("id", { count: "exact", head: true }).eq("approved", false),
+    db.from("quotes").select("id", { count: "exact", head: true }),
+    db.from("quotes").select("id", { count: "exact", head: true }).eq("status", "tamamlandi"),
+    db.from("preorders").select("id", { count: "exact", head: true }).eq("status", "tamamlandi"),
   ]);
   return {
     newQuotes: q.count || 0,
     newPreorders: p.count || 0,
     pendingComments: c.count || 0,
+    totalQuotes: qTotal.count || 0,
+    completedJobs: (qDone.count || 0) + (pDone.count || 0),
   };
+}
+
+/** Son 6 ayda ay bazında teklif ve ön sipariş sayısı (admin panel grafiği için) */
+export async function getMonthlyActivity() {
+  const db = supabaseAdmin();
+  const since = new Date();
+  since.setMonth(since.getMonth() - 5);
+  since.setDate(1);
+  since.setHours(0, 0, 0, 0);
+
+  const [{ data: quotes }, { data: preorders }] = await Promise.all([
+    db.from("quotes").select("created_at").gte("created_at", since.toISOString()),
+    db.from("preorders").select("created_at").gte("created_at", since.toISOString()),
+  ]);
+
+  const months: { key: string; label: string }[] = [];
+  const cursor = new Date(since);
+  for (let i = 0; i < 6; i++) {
+    const key = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, "0")}`;
+    const label = cursor.toLocaleDateString("tr-TR", { month: "short" });
+    months.push({ key, label });
+    cursor.setMonth(cursor.getMonth() + 1);
+  }
+
+  const countByMonth = (rows: { created_at: string }[] | null, key: string) =>
+    (rows || []).filter((r) => r.created_at.slice(0, 7) === key).length;
+
+  return months.map((m) => ({
+    label: m.label,
+    teklif: countByMonth(quotes, m.key),
+    onSiparis: countByMonth(preorders, m.key),
+  }));
 }

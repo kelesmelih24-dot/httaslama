@@ -90,6 +90,10 @@ function GalleryFields({ defaults }: { defaults?: any }) {
         <input name="before_image_url" defaultValue={defaults?.before_image_url} placeholder="https://..." className="input" />
       </div>
       <div>
+        <Label>Video URL (opsiyonel — YouTube linki veya doğrudan .mp4 linki)</Label>
+        <input name="video_url" defaultValue={defaults?.video_url} placeholder="https://youtube.com/watch?v=... veya .mp4 linki" className="input" />
+      </div>
+      <div>
         <Label>Sıra No</Label>
         <input name="order_index" type="number" defaultValue={defaults?.order_index ?? 0} className="input" />
       </div>

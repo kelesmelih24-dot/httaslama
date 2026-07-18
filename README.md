@@ -40,6 +40,11 @@ tamamen yönetilebilen bir işletme sitesi.
 4. `supabase/seed_content.sql` dosyasını çalıştırın — bu, SSS ve Blog
    bölümlerinin boş görünmemesi için hazır içerik ekler (istediğiniz zaman
    admin panelden düzenleyebilir veya silebilirsiniz).
+5. `supabase/migrate_v3_expansion.sql` dosyasını çalıştırın — bu, 5 yeni
+   hizmeti (CNC Taşlama, Kalıp Taşlama, Hassas Taşlama, Parça Revizyonu,
+   Özel Üretim Çözümleri), örnek galeri görsellerini, 4 yeni blog yazısını,
+   5 yeni SSS sorusunu, teklif/ön sipariş formlarındaki yeni alanları ve
+   anasayfadaki "Rakamlarla Biz" istatistik kutularını ekler.
 4. **Daha önce eski bir sürümü kurduysanız**: `supabase/migrate_v2_expansion.sql`
    dosyasını çalıştırın, mevcut verileriniz silinmeden yeni sütun/tablolar
    eklenir.
@@ -141,11 +146,15 @@ gizli anahtarlarınız güvende kalır.
   - **SSS**: soru-cevap ekleyin/düzenleyin
   - **Teklif Talepleri**: gelen talepleri (yüklenen dosya dahil) görün,
     durumunu güncelleyin
-  - **Ön Siparişler**: gelen ön siparişleri görün, durumunu güncelleyin
+  - **Ön Siparişler**: gelen ön siparişleri (yüklenen dosya dahil) görün,
+    durumunu güncelleyin
   - **Yorumlar**: yayınlamadan önce onaylayın/reddedin
   - **Site Ayarları**: telefon, WhatsApp, e-posta, adres, çalışma saatleri,
-    anasayfa metinleri ve Hakkımızda içeriğini (hikaye, misyon, vizyon,
-    kalite/iş güvenliği politikası) güncelleyin
+    anasayfa metinleri, Hakkımızda içeriği ve anasayfadaki "Rakamlarla Biz"
+    istatistik kutularını güncelleyin
+  - **Panel**: yeni teklif/ön sipariş/yorum sayıları, tüm zamanların toplam
+    teklif sayısı, tamamlanan iş sayısı ve son 6 ayın teklif/ön sipariş
+    grafiğini görün
 
 Değişiklikler kaydedildiği anda siteye yansır, yeniden deploy gerekmez.
 
@@ -160,3 +169,15 @@ Değişiklikler kaydedildiği anda siteye yansır, yeniden deploy gerekmez.
 - **jose** ile imzalı, `httpOnly` çerez tabanlı admin oturumu (12 saat geçerli)
 - Genel sayfalar 60 saniyede bir yenilenir (ISR) + admin bir şey kaydettiğinde
   anında yenilenir (on-demand revalidation)
+
+## Notlar
+
+- **Logo**: Şu an `components/site/Logo.tsx` içinde tasarlanmış bir amblem
+  kullanılıyor. Gerçek logonuzu gönderdiğinizde bu dosyayı güncelleyip
+  Navbar/Footer'da otomatik olarak yeni logonun görünmesini sağlayabiliriz.
+  Favicon (`app/icon.svg`) de aynı şekilde güncellenecek.
+- **Gizlilik Politikası / Kullanım Şartları**: Bu sayfalardaki metinler genel
+  bir şablondur, hukuki danışmanlık yerine geçmez. Yayına almadan önce bir
+  hukuk danışmanına gözden geçirtmenizi öneririz.
+- **AI destekli canlı sohbet botu**: Bu özellik şimdilik ertelendi, istediğiniz
+  zaman ayrı bir aşama olarak ekleyebiliriz.

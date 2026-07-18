@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { Paperclip } from "lucide-react";
 import { getAllPreorders } from "@/lib/admin-data";
 import { updatePreorderStatus } from "@/lib/actions/admin";
 import StatusSelect from "@/components/admin/StatusSelect";
@@ -45,6 +46,16 @@ export default async function AdminOnSiparislerPage() {
               {p.quantity && <p>Adet: {p.quantity}</p>}
               {p.preferred_date && <p>Tercih edilen tarih: {p.preferred_date}</p>}
             </div>
+            {p.file_url && (
+              <a
+                href={p.file_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1.5 text-xs text-metal underline hover:text-spark"
+              >
+                <Paperclip size={13} /> Yüklenen dosyayı görüntüle
+              </a>
+            )}
           </div>
         ))}
       </div>

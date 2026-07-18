@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { getServiceBySlug } from "@/lib/data";
+import { getServiceIcon } from "@/lib/serviceIcons";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const service = await getServiceBySlug(params.slug);
@@ -17,13 +18,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {
   const service = await getServiceBySlug(params.slug);
   if (!service) notFound();
+  const Icon = getServiceIcon(service.slug);
 
   return (
     <section className="mx-auto max-w-4xl px-5 py-20 lg:px-8">
       <div className="dim-line mb-4 w-fit">HİZMET DETAYI</div>
-      <h1 className="font-display text-4xl font-bold uppercase tracking-tight text-metal">
-        {service.title}
-      </h1>
+      <div className="flex items-center gap-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-sm border border-steel2 bg-steel text-spark">
+          <Icon size={26} />
+        </div>
+        <h1 className="font-display text-4xl font-bold uppercase tracking-tight text-metal">
+          {service.title}
+        </h1>
+      </div>
       <p className="mt-5 text-base leading-relaxed text-metalDim">{service.summary}</p>
 
       {service.detail && (

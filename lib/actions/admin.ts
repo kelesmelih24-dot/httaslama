@@ -115,6 +115,7 @@ export async function upsertGalleryItem(formData: FormData) {
     category: String(formData.get("category") || "atolye"),
     image_url: String(formData.get("image_url") || ""),
     before_image_url: String(formData.get("before_image_url") || "") || null,
+    video_url: String(formData.get("video_url") || "") || null,
     order_index: Number(formData.get("order_index") || 0),
   };
   if (id) {
@@ -224,6 +225,20 @@ export async function updateHoursSettings(formData: FormData) {
   };
   await db.from("site_settings").upsert({ key: "hours", value });
   revalidatePath("/iletisim");
+}
+
+export async function updateStatsSettings(formData: FormData) {
+  const db = supabaseAdmin();
+  const value = {
+    stat1_value: String(formData.get("stat1_value") || ""),
+    stat1_label: String(formData.get("stat1_label") || ""),
+    stat2_value: String(formData.get("stat2_value") || ""),
+    stat2_label: String(formData.get("stat2_label") || ""),
+    stat3_value: String(formData.get("stat3_value") || ""),
+    stat3_label: String(formData.get("stat3_label") || ""),
+  };
+  await db.from("site_settings").upsert({ key: "stats", value });
+  revalidatePath("/");
 }
 export async function updateContactSettings(formData: FormData) {
   const db = supabaseAdmin();

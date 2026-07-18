@@ -32,6 +32,13 @@ export const metadata: Metadata = {
     description: "Mikron hassasiyetinde delik, silindirik ve satıh taşlama hizmetleri.",
     locale: "tr_TR",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "HT Makina Taşlama" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HT Makina Taşlama",
+    description: "Mikron hassasiyetinde delik, silindirik ve satıh taşlama hizmetleri.",
+    images: ["/og-image.png"],
   },
 };
 

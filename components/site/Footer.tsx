@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import type { SiteSettings, HoursSettings } from "@/lib/types";
+import Logo from "@/components/site/Logo";
 
 export default function Footer({
   settings,
@@ -13,8 +14,9 @@ export default function Footer({
     <footer className="border-t border-steel2 bg-steel">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-5 lg:px-8">
         <div className="lg:col-span-2">
-          <div className="font-display text-lg font-bold tracking-wide text-metal">
-            <span className="text-spark">HT</span> MAKİNA TAŞLAMA
+          <div className="flex items-center gap-2.5 font-display text-lg font-bold tracking-wide text-metal">
+            <Logo className="h-8 w-8 shrink-0" />
+            <span><span className="text-metal">HT</span> <span className="text-spark">MAKİNA TAŞLAMA</span></span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-metalDim">
             HT Makina Taşlama ekibi ile hassas metal işlemede mikron toleransla çalışan
@@ -49,6 +51,8 @@ export default function Footer({
             <li><Link href="/blog" className="hover:text-spark">Blog</Link></li>
             <li><Link href="/sss" className="hover:text-spark">SSS</Link></li>
             <li><Link href="/on-siparis" className="hover:text-spark">Ön Sipariş</Link></li>
+            <li><Link href="/gizlilik-politikasi" className="hover:text-spark">Gizlilik Politikası</Link></li>
+            <li><Link href="/kullanim-sartlari" className="hover:text-spark">Kullanım Şartları</Link></li>
           </ul>
         </div>
 

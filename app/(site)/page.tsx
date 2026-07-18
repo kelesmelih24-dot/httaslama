@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import Link from "next/link";
-import { ArrowRight, CircleDot, Layers, Sparkles, Wind, Target } from "lucide-react";
+import { ArrowRight, CircleDot, Layers, Sparkles, Wind, Play } from "lucide-react";
 import {
   getServices,
   getReferences,
@@ -10,13 +10,14 @@ import {
   getAboutSettings,
   getGallery,
   getPublishedPosts,
+  getStatsSettings,
 } from "@/lib/data";
 import HeroDiagram from "@/components/site/HeroDiagram";
 import ServiceCard from "@/components/site/ServiceCard";
 import StarRating from "@/components/site/StarRating";
 
 export default async function HomePage() {
-  const [services, references, comments, settings, about, gallery, posts] = await Promise.all([
+  const [services, references, comments, settings, about, gallery, posts, stats] = await Promise.all([
     getServices(),
     getReferences(),
     getApprovedComments(),
@@ -24,6 +25,7 @@ export default async function HomePage() {
     getAboutSettings(),
     getGallery(),
     getPublishedPosts(),
+    getStatsSettings(),
   ]);
 
   return (
@@ -77,11 +79,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ---------------- HAKKIMIZDA ÖNİZLEME ---------------- */}
+      {/* ---------------- HAKKIMIZDA ÖNİZLEME + RAKAMLARLA BİZ ---------------- */}
       <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-3 lg:items-center">
+        <div className="dim-line mb-4 w-fit">HAKKIMIZDA</div>
+        <div className="grid gap-10 lg:grid-cols-3 lg:items-start">
           <div className="lg:col-span-2">
-            <div className="dim-line mb-4 w-fit">HAKKIMIZDA</div>
             <h2 className="max-w-xl font-display text-3xl font-bold uppercase tracking-tight text-metal sm:text-4xl">
               Mikron hassasiyetinde çözüm ortağınız
             </h2>
@@ -93,12 +95,19 @@ export default async function HomePage() {
               Hikayemizi Okuyun <ArrowRight size={16} />
             </Link>
           </div>
-          <div className="spec-card flex flex-col items-center justify-center rounded-sm p-8 text-center">
-            <Target className="text-spark" size={22} />
-            <span className="mt-3 font-display text-5xl font-bold text-spark">{about.years_experience}+</span>
-            <span className="mt-2 font-display text-xs font-semibold uppercase tracking-wider text-metalDim">
-              Yıllık Deneyim
-            </span>
+          <div className="grid grid-cols-3 gap-3 lg:grid-cols-1">
+            {[
+              { value: stats.stat1_value, label: stats.stat1_label },
+              { value: stats.stat2_value, label: stats.stat2_label },
+              { value: stats.stat3_value, label: stats.stat3_label },
+            ].map((s, i) => (
+              <div key={i} className="spec-card flex flex-col items-center justify-center rounded-sm p-5 text-center">
+                <span className="font-display text-2xl font-bold text-spark sm:text-3xl">{s.value}</span>
+                <span className="mt-1.5 font-display text-[11px] font-semibold uppercase tracking-wider text-metalDim">
+                  {s.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -172,9 +181,14 @@ export default async function HomePage() {
           </div>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {gallery.slice(0, 4).map((item) => (
-              <div key={item.id} className="spec-card overflow-hidden rounded-sm">
+              <div key={item.id} className="spec-card relative overflow-hidden rounded-sm">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={item.image_url} alt={item.title} className="aspect-square w-full object-cover" />
+                {item.video_url && (
+                  <span className="absolute left-2 top-2 flex items-center gap-1 rounded-sm bg-graphite/80 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-spark">
+                    <Play size={10} /> Video
+                  </span>
+                )}
               </div>
             ))}
           </div>

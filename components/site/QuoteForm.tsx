@@ -4,6 +4,7 @@ import { useRef, useState, useTransition } from "react";
 import { CheckCircle2, Loader2, Paperclip } from "lucide-react";
 import { submitQuote } from "@/lib/actions/public";
 import type { Service } from "@/lib/types";
+import HoneypotField from "@/components/site/HoneypotField";
 
 export default function QuoteForm({ services }: { services: Service[] }) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -44,6 +45,7 @@ export default function QuoteForm({ services }: { services: Service[] }) {
 
   return (
     <form ref={formRef} action={handleSubmit} className="spec-card space-y-5 rounded-sm p-7">
+      <HoneypotField />
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Ad Soyad *" name="full_name" required />
         <Field label="Firma Adı" name="company_name" />
@@ -72,6 +74,21 @@ export default function QuoteForm({ services }: { services: Service[] }) {
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Adet" name="quantity" type="number" />
         <Field label="Teslim Tarihi (tercih)" name="delivery_date" type="date" />
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Bütçe Aralığı (opsiyonel)" name="budget_range" placeholder="Örn: 5.000 - 10.000 TL" />
+        <div>
+          <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-metalDim">
+            Tercih Edilen İletişim Şekli
+          </label>
+          <select name="preferred_contact" className="input">
+            <option value="">Farketmez</option>
+            <option value="Telefon">Telefon</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="E-posta">E-posta</option>
+          </select>
+        </div>
       </div>
 
       <div>

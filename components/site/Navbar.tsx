@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import Logo from "@/components/site/Logo";
 
 const primaryLinks = [
   { href: "/", label: "Anasayfa" },
@@ -26,8 +27,9 @@ export default function Navbar({ phone }: { phone: string }) {
   return (
     <header className="sticky top-0 z-50 border-b border-steel2 bg-graphite/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-wide text-metal">
-          <span className="text-spark">HT</span> MAKİNA TAŞLAMA
+        <Link href="/" className="flex items-center gap-2.5 font-display text-xl font-bold tracking-wide text-metal">
+          <Logo className="h-9 w-9 shrink-0" />
+          <span><span className="text-metal">HT</span> <span className="text-spark">MAKİNA TAŞLAMA</span></span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

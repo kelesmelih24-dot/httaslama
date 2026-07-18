@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { CheckCircle2, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { useRef, useState, useTransition } from "react";
+import { CheckCircle2, ChevronLeft, ChevronRight, Loader2, Paperclip } from "lucide-react";
 import { submitPreorder } from "@/lib/actions/public";
 import type { Service } from "@/lib/types";
 
@@ -27,20 +27,22 @@ const initial: FormState = {
   email: "",
 };
 
+const TOTAL_STEPS = 4;
+
 export default function PreorderWizard({ services }: { services: Service[] }) {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<FormState>(initial);
+  const [file, setFile] = useState<File | null>(null);
   const [pending, startTransition] = useTransition();
   const [result, setResult] = useState<{ ok: boolean; error?: string } | null>(null);
-
-  const totalSteps = 3;
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setData((d) => ({ ...d, [key]: value }));
   }
 
   function next() {
-    setStep((s) => Math.min(s + 1, totalSteps));
+    setStep((s) => Math.min(s + 1, TOTAL_STEPS));
   }
   function back() {
     setStep((s) => Math.max(s - 1, 1));
@@ -49,6 +51,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
   function handleConfirm() {
     const fd = new FormData();
     Object.entries(data).forEach(([k, v]) => fd.set(k, v));
+    if (file) fd.set("file", file);
     startTransition(async () => {
       const res = await submitPreorder(fd);
       setResult(res.ok ? { ok: true } : { ok: false, error: res.error });
@@ -73,7 +76,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
     <div className="spec-card rounded-sm p-7">
       {/* İlerleme çubuğu */}
       <div className="mb-8 flex items-center gap-2">
-        {Array.from({ length: totalSteps }).map((_, i) => (
+        {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
           <div key={i} className="flex flex-1 items-center gap-2">
             <div
               className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-mono text-xs ${
@@ -86,7 +89,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
             >
               {i + 1}
             </div>
-            {i < totalSteps - 1 && (
+            {i < TOTAL_STEPS - 1 && (
               <div className={`h-px flex-1 ${step > i + 1 ? "bg-spark" : "bg-steel2"}`} />
             )}
           </div>
@@ -160,7 +163,42 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
       {step === 3 && (
         <div>
           <h3 className="font-display text-lg font-semibold uppercase tracking-wide text-metal">
-            3. İletişim bilgileri & onay
+            3. Teknik resim / fotoğraf (opsiyonel)
+          </h3>
+          <p className="mt-2 text-sm text-metalDim">
+            Elinizde parçaya ait bir teknik resim, PDF veya fotoğraf varsa ekleyebilirsiniz. Bu adımı boş geçebilirsiniz.
+          </p>
+          <div className="mt-5">
+            <label className="mb-1.5 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-metalDim">
+              <Paperclip size={13} /> Dosya (max 10 MB)
+            </label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              className="w-full rounded-sm border border-steel2 bg-steel px-3 py-2.5 text-sm text-metalDim file:mr-3 file:rounded-sm file:border-0 file:bg-steel2 file:px-3 file:py-1.5 file:text-xs file:text-metal file:uppercase"
+            />
+            {file && <p className="mt-1.5 font-mono text-xs text-spark">{file.name}</p>}
+          </div>
+          <div className="mt-8 flex justify-between">
+            <button onClick={back} className="flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-wider text-metalDim hover:text-metal">
+              <ChevronLeft size={16} /> Geri
+            </button>
+            <button
+              onClick={next}
+              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-graphite"
+            >
+              Devam <ChevronRight size={16} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div>
+          <h3 className="font-display text-lg font-semibold uppercase tracking-wide text-metal">
+            4. İletişim bilgileri & özet onay
           </h3>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <Input label="Ad Soyad *" value={data.full_name} onChange={(v) => update("full_name", v)} />
@@ -168,11 +206,16 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
             <Input label="E-posta" value={data.email} onChange={(v) => update("email", v)} type="email" />
           </div>
 
-          <div className="mt-6 rounded-sm border border-steel2 bg-graphite p-4 text-sm text-metalDim">
+          <div className="mt-6 space-y-1.5 rounded-sm border border-steel2 bg-graphite p-4 text-sm text-metalDim">
+            <p className="mb-2 font-display text-xs font-semibold uppercase tracking-wider text-metal">
+              Özet
+            </p>
             <p><span className="text-metal">Kategori:</span> {data.category}</p>
-            {data.part_detail && <p className="mt-1"><span className="text-metal">Parça:</span> {data.part_detail}</p>}
-            {data.material && <p className="mt-1"><span className="text-metal">Malzeme:</span> {data.material}</p>}
-            {data.quantity && <p className="mt-1"><span className="text-metal">Adet:</span> {data.quantity}</p>}
+            {data.part_detail && <p><span className="text-metal">Parça:</span> {data.part_detail}</p>}
+            {data.material && <p><span className="text-metal">Malzeme:</span> {data.material}</p>}
+            {data.quantity && <p><span className="text-metal">Adet:</span> {data.quantity}</p>}
+            {data.preferred_date && <p><span className="text-metal">Tercih edilen tarih:</span> {data.preferred_date}</p>}
+            <p><span className="text-metal">Dosya:</span> {file ? file.name : "Eklenmedi"}</p>
           </div>
 
           {result?.error && <p className="mt-4 text-sm text-spark">{result.error}</p>}

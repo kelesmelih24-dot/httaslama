@@ -6,10 +6,11 @@ import {
   updateContentSettings,
   updateAboutSettings,
   updateHoursSettings,
+  updateStatsSettings,
 } from "@/lib/actions/admin";
 
 export default async function AdminAyarlarPage() {
-  const { contact, content, about, hours } = await getAdminSettings();
+  const { contact, content, about, hours, stats } = await getAdminSettings();
 
   return (
     <div className="max-w-2xl space-y-10">
@@ -118,6 +119,42 @@ export default async function AdminAyarlarPage() {
             <Label>Pazar</Label>
             <input name="pazar" defaultValue={hours.pazar} placeholder="Kapalı" className="input" />
           </div>
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+            Kaydet
+          </button>
+        </form>
+      </section>
+
+      <section className="spec-card rounded-sm p-6">
+        <h2 className="font-display text-sm font-semibold uppercase tracking-wider text-metal">
+          Rakamlarla Biz (Anasayfa)
+        </h2>
+        <p className="mt-1 text-xs text-metalDim">
+          Anasayfada Hakkımızda bölümünün yanında gösterilen 3 istatistik kutusu.
+        </p>
+        <form action={updateStatsSettings} className="mt-5 space-y-5">
+          {[1, 2, 3].map((n) => (
+            <div key={n} className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <Label>{n}. Kutu — Değer</Label>
+                <input
+                  name={`stat${n}_value`}
+                  defaultValue={(stats as any)[`stat${n}_value`]}
+                  placeholder="Örn: 500+"
+                  className="input"
+                />
+              </div>
+              <div>
+                <Label>{n}. Kutu — Etiket</Label>
+                <input
+                  name={`stat${n}_label`}
+                  defaultValue={(stats as any)[`stat${n}_label`]}
+                  placeholder="Örn: Tamamlanan İş"
+                  className="input"
+                />
+              </div>
+            </div>
+          ))}
           <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
             Kaydet
           </button>

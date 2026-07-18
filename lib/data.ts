@@ -9,6 +9,7 @@ import type {
   Post,
   AboutSettings,
   HoursSettings,
+  StatsSettings,
 } from "@/lib/types";
 
 export async function getServices(): Promise<Service[]> {
@@ -95,6 +96,24 @@ export async function getHoursSettings(): Promise<HoursSettings> {
     .eq("key", "hours")
     .maybeSingle();
   return { ...DEFAULT_HOURS, ...(data?.value || {}) };
+}
+
+const DEFAULT_STATS: StatsSettings = {
+  stat1_value: "10+",
+  stat1_label: "Yıllık Deneyim",
+  stat2_value: "500+",
+  stat2_label: "Tamamlanan İş",
+  stat3_value: "± 0.005 mm",
+  stat3_label: "Hassasiyet Seviyesi",
+};
+
+export async function getStatsSettings(): Promise<StatsSettings> {
+  const { data } = await supabasePublic()
+    .from("site_settings")
+    .select("*")
+    .eq("key", "stats")
+    .maybeSingle();
+  return { ...DEFAULT_STATS, ...(data?.value || {}) };
 }
 
 export async function getGallery(): Promise<GalleryItem[]> {

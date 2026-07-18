@@ -43,6 +43,8 @@ export default async function AdminTekliflerPage() {
               {q.material && <span>Malzeme: {q.material}</span>}
               {q.quantity && <span>Adet: {q.quantity}</span>}
               {q.delivery_date && <span>Teslim: {q.delivery_date}</span>}
+              {q.budget_range && <span>Bütçe: {q.budget_range}</span>}
+              {q.preferred_contact && <span>İletişim tercihi: {q.preferred_contact}</span>}
             </div>
             <p className="mt-2 text-sm text-metalDim">{q.description}</p>
             {q.file_url && (
