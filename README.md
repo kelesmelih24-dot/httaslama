@@ -181,3 +181,27 @@ Değişiklikler kaydedildiği anda siteye yansır, yeniden deploy gerekmez.
   hukuk danışmanına gözden geçirtmenizi öneririz.
 - **AI destekli canlı sohbet botu**: Bu özellik şimdilik ertelendi, istediğiniz
   zaman ayrı bir aşama olarak ekleyebiliriz.
+
+## AI Destekli Sohbet Botu (Groq / Llama 3.3 70B) Kurulumu
+
+1. [console.groq.com](https://console.groq.com) adresinden ücretsiz bir hesap açın
+   (kredi kartı gerekmez).
+2. **API Keys** sayfasından yeni bir API anahtarı oluşturun.
+3. Vercel'de **Environment Variables** kısmına ekleyin:
+   - `GROQ_API_KEY` → oluşturduğunuz anahtar
+   - `GROQ_MODEL` → `llama-3.3-70b-versatile` (varsayılan)
+4. Ücretsiz katman günlük istek/token limitleriyle gelir; yoğun kullanımda
+   limitlere takılırsanız [console.groq.com](https://console.groq.com)
+   üzerinden ücretli plana geçebilirsiniz. Güncel model isimlerini
+   [console.groq.com/docs/models](https://console.groq.com/docs/models)
+   üzerinden kontrol edin, model isimleri zaman zaman değişebiliyor.
+
+Bot, sitenizdeki güncel hizmetler, iletişim bilgileri, çalışma saatleri ve
+SSS içeriğini otomatik olarak bilgi kaynağı olarak kullanır — ayrıca bir şey
+yapılandırmanıza gerek yoktur. Kesin fiyat veya teslim tarihi vermemesi,
+Türkçe yanıt vermesi ve alakasız konularda nazikçe yönlendirmesi için
+talimatlandırılmıştır.
+
+**Maliyet koruması:** Bot, bir oturumda en fazla 20 mesajla sınırlıdır ve
+her istekte sohbet geçmişinin yalnızca son birkaç mesajı gönderilir; bu,
+beklenmedik yüksek kullanım/maliyeti önler.

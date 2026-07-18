@@ -3,6 +3,7 @@ import Footer from "@/components/site/Footer";
 import WhatsappButton from "@/components/site/WhatsappButton";
 import QuickQuotePopup from "@/components/site/QuickQuotePopup";
 import CookieConsent from "@/components/site/CookieConsent";
+import ChatWidget from "@/components/site/ChatWidget";
 import { getSiteSettings, getHoursSettings, getServices } from "@/lib/data";
 import { buildLocalBusinessSchema } from "@/lib/structuredData";
 
@@ -27,6 +28,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <Footer settings={settings} hours={hours} />
       <WhatsappButton whatsapp={settings.whatsapp} />
       <QuickQuotePopup services={services} />
+      <ChatWidget />
       <CookieConsent />
     </>
   );
