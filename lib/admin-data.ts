@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase";
-import type { Quote, Preorder, Comment, Service, Reference } from "@/lib/types";
+import type { Quote, Preorder, Comment, Service, Reference, GalleryItem, Faq, Post } from "@/lib/types";
 
 export async function getAllQuotes(): Promise<Quote[]> {
   const db = supabaseAdmin();
@@ -39,7 +39,27 @@ export async function getAdminSettings() {
   const { data } = await db.from("site_settings").select("*");
   const contact = data?.find((r) => r.key === "contact")?.value || {};
   const content = data?.find((r) => r.key === "content")?.value || {};
-  return { contact, content };
+  const about = data?.find((r) => r.key === "about")?.value || {};
+  const hours = data?.find((r) => r.key === "hours")?.value || {};
+  return { contact, content, about, hours };
+}
+
+export async function getAllGalleryAdmin(): Promise<GalleryItem[]> {
+  const db = supabaseAdmin();
+  const { data } = await db.from("gallery").select("*").order("order_index", { ascending: true });
+  return (data as GalleryItem[]) || [];
+}
+
+export async function getAllFaqsAdmin(): Promise<Faq[]> {
+  const db = supabaseAdmin();
+  const { data } = await db.from("faqs").select("*").order("order_index", { ascending: true });
+  return (data as Faq[]) || [];
+}
+
+export async function getAllPostsAdmin(): Promise<Post[]> {
+  const db = supabaseAdmin();
+  const { data } = await db.from("posts").select("*").order("created_at", { ascending: false });
+  return (data as Post[]) || [];
 }
 
 export async function getDashboardCounts() {

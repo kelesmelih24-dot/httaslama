@@ -1,4 +1,4 @@
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 import Link from "next/link";
 import { ArrowRight, CircleDot, Layers, Sparkles, Wind } from "lucide-react";

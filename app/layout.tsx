@@ -23,9 +23,16 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.htmakinataslama.com"),
   title: "HT Makina Taşlama | Delik, Silindirik ve Satıh Taşlama",
   description:
     "Batuhan Usta ve ekibi; delik taşlama, silindirik taşlama, satıh (yüzey) taşlama ve çapak alma hizmetlerinde mikron hassasiyetinde çözüm sunar. Teklif alın veya ön sipariş verin.",
+  openGraph: {
+    title: "HT Makina Taşlama",
+    description: "Mikron hassasiyetinde delik, silindirik ve satıh taşlama hizmetleri.",
+    locale: "tr_TR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

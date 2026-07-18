@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useTransition } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, Paperclip } from "lucide-react";
 import { submitQuote } from "@/lib/actions/public";
 import type { Service } from "@/lib/types";
 
@@ -9,12 +9,16 @@ export default function QuoteForm({ services }: { services: Service[] }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [pending, startTransition] = useTransition();
   const [state, setState] = useState<{ ok: boolean; error?: string } | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
       const result = await submitQuote(formData);
       setState(result.ok ? { ok: true } : { ok: false, error: result.error });
-      if (result.ok) formRef.current?.reset();
+      if (result.ok) {
+        formRef.current?.reset();
+        setFileName(null);
+      }
     });
   }
 
@@ -42,18 +46,19 @@ export default function QuoteForm({ services }: { services: Service[] }) {
     <form ref={formRef} action={handleSubmit} className="spec-card space-y-5 rounded-sm p-7">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Ad Soyad *" name="full_name" required />
-        <Field label="Telefon *" name="phone" type="tel" required />
+        <Field label="Firma Adı" name="company_name" />
       </div>
       <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Telefon *" name="phone" type="tel" required />
         <Field label="E-posta" name="email" type="email" />
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-metalDim">
             İlgili Hizmet
           </label>
-          <select
-            name="service_type"
-            className="w-full rounded-sm border border-steel2 bg-steel px-3 py-2.5 text-sm text-metal focus:border-spark"
-          >
+          <select name="service_type" className="input">
             <option value="">Seçiniz (opsiyonel)</option>
             {services.map((s) => (
               <option key={s.id} value={s.title}>{s.title}</option>
@@ -61,7 +66,14 @@ export default function QuoteForm({ services }: { services: Service[] }) {
             <option value="Diğer">Diğer</option>
           </select>
         </div>
+        <Field label="Malzeme Türü" name="material" placeholder="Çelik, döküm, alüminyum..." />
       </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Adet" name="quantity" type="number" />
+        <Field label="Teslim Tarihi (tercih)" name="delivery_date" type="date" />
+      </div>
+
       <div>
         <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-metalDim">
           İş Detayı / Parça Ölçüsü *
@@ -71,8 +83,22 @@ export default function QuoteForm({ services }: { services: Service[] }) {
           required
           rows={4}
           placeholder="Örn: 45 mm çapında, 300 mm boy, çelik mil - dış çap taşlama"
-          className="w-full rounded-sm border border-steel2 bg-steel px-3 py-2.5 text-sm text-metal placeholder:text-metalDim/60 focus:border-spark"
+          className="input"
         />
+      </div>
+
+      <div>
+        <label className="mb-1.5 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-metalDim">
+          <Paperclip size={13} /> Teknik Resim / PDF (opsiyonel, max 10 MB)
+        </label>
+        <input
+          name="file"
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf"
+          onChange={(e) => setFileName(e.target.files?.[0]?.name || null)}
+          className="w-full rounded-sm border border-steel2 bg-steel px-3 py-2.5 text-sm text-metalDim file:mr-3 file:rounded-sm file:border-0 file:bg-steel2 file:px-3 file:py-1.5 file:text-xs file:text-metal file:uppercase"
+        />
+        {fileName && <p className="mt-1.5 font-mono text-xs text-spark">{fileName}</p>}
       </div>
 
       {state?.error && <p className="text-sm text-spark">{state.error}</p>}
@@ -94,23 +120,20 @@ function Field({
   name,
   type = "text",
   required,
+  placeholder,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  placeholder?: string;
 }) {
   return (
     <div>
       <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-metalDim">
         {label}
       </label>
-      <input
-        name={name}
-        type={type}
-        required={required}
-        className="w-full rounded-sm border border-steel2 bg-steel px-3 py-2.5 text-sm text-metal placeholder:text-metalDim/60 focus:border-spark"
-      />
+      <input name={name} type={type} required={required} placeholder={placeholder} className="input" />
     </div>
   );
 }

@@ -2,19 +2,26 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 
-const links = [
+const primaryLinks = [
   { href: "/", label: "Anasayfa" },
   { href: "/hizmetler", label: "Hizmetler" },
   { href: "/referanslar", label: "Referanslar" },
+  { href: "/blog", label: "Blog" },
+];
+
+const moreLinks = [
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/galeri", label: "Galeri" },
   { href: "/on-siparis", label: "Ön Sipariş" },
   { href: "/yorumlar", label: "Yorumlar" },
-  { href: "/iletisim", label: "İletişim" },
+  { href: "/sss", label: "SSS" },
 ];
 
 export default function Navbar({ phone }: { phone: string }) {
   const [open, setOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-steel2 bg-graphite/95 backdrop-blur">
@@ -24,7 +31,7 @@ export default function Navbar({ phone }: { phone: string }) {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {links.map((l) => (
+          {primaryLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -33,6 +40,36 @@ export default function Navbar({ phone }: { phone: string }) {
               {l.label}
             </Link>
           ))}
+
+          <div
+            className="relative"
+            onMouseEnter={() => setMoreOpen(true)}
+            onMouseLeave={() => setMoreOpen(false)}
+          >
+            <button className="flex items-center gap-1 font-display text-sm font-medium uppercase tracking-wider text-metalDim transition hover:text-spark">
+              Kurumsal <ChevronDown size={14} />
+            </button>
+            {moreOpen && (
+              <div className="absolute left-0 top-full w-52 border border-steel2 bg-steel py-2 shadow-lg">
+                {moreLinks.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="block px-4 py-2.5 font-display text-xs font-medium uppercase tracking-wider text-metalDim hover:bg-graphite hover:text-spark"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link
+            href="/iletisim"
+            className="font-display text-sm font-medium uppercase tracking-wider text-metalDim transition hover:text-spark"
+          >
+            İletişim
+          </Link>
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -62,7 +99,7 @@ export default function Navbar({ phone }: { phone: string }) {
       {open && (
         <div className="border-t border-steel2 px-5 pb-6 lg:hidden">
           <nav className="flex flex-col gap-1 pt-4">
-            {links.map((l) => (
+            {[...primaryLinks, ...moreLinks, { href: "/iletisim", label: "İletişim" }].map((l) => (
               <Link
                 key={l.href}
                 href={l.href}

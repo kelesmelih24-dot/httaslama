@@ -1,4 +1,4 @@
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 import { getServices } from "@/lib/data";
 import ServiceCard from "@/components/site/ServiceCard";

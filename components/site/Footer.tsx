@@ -1,12 +1,18 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail } from "lucide-react";
-import type { SiteSettings } from "@/lib/types";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import type { SiteSettings, HoursSettings } from "@/lib/types";
 
-export default function Footer({ settings }: { settings: SiteSettings }) {
+export default function Footer({
+  settings,
+  hours,
+}: {
+  settings: SiteSettings;
+  hours: HoursSettings;
+}) {
   return (
     <footer className="border-t border-steel2 bg-steel">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-4 lg:px-8">
-        <div>
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-5 lg:px-8">
+        <div className="lg:col-span-2">
           <div className="font-display text-lg font-bold tracking-wide text-metal">
             <span className="text-spark">HT</span> MAKİNA TAŞLAMA
           </div>
@@ -14,6 +20,11 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
             Batuhan Usta ve ekibi ile hassas metal işlemede mikron toleransla çalışan
             taşlama atölyesi.
           </p>
+          <div className="mt-5 space-y-1.5 text-sm text-metalDim">
+            <p className="flex items-center gap-2"><Clock size={14} className="text-spark shrink-0" /> Hafta içi: {hours.hafta_ici}</p>
+            <p className="flex items-center gap-2 pl-[22px]">Cumartesi: {hours.cumartesi}</p>
+            <p className="flex items-center gap-2 pl-[22px]">Pazar: {hours.pazar}</p>
+          </div>
         </div>
 
         <div>
@@ -33,10 +44,12 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
             Kurumsal
           </h4>
           <ul className="mt-4 space-y-2 text-sm text-metalDim">
+            <li><Link href="/hakkimizda" className="hover:text-spark">Hakkımızda</Link></li>
+            <li><Link href="/galeri" className="hover:text-spark">Galeri</Link></li>
             <li><Link href="/referanslar" className="hover:text-spark">Referanslar</Link></li>
+            <li><Link href="/blog" className="hover:text-spark">Blog</Link></li>
+            <li><Link href="/sss" className="hover:text-spark">SSS</Link></li>
             <li><Link href="/on-siparis" className="hover:text-spark">Ön Sipariş</Link></li>
-            <li><Link href="/yorumlar" className="hover:text-spark">Yorumlar</Link></li>
-            <li><Link href="/iletisim" className="hover:text-spark">İletişim</Link></li>
           </ul>
         </div>
 

@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { Paperclip } from "lucide-react";
 import { getAllQuotes } from "@/lib/admin-data";
 import { updateQuoteStatus } from "@/lib/actions/admin";
 import StatusSelect from "@/components/admin/StatusSelect";
@@ -26,7 +27,7 @@ export default async function AdminTekliflerPage() {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="font-display text-sm font-semibold uppercase tracking-wide text-metal">
-                  {q.full_name}
+                  {q.full_name} {q.company_name && <span className="text-metalDim">· {q.company_name}</span>}
                 </p>
                 <p className="mt-0.5 text-xs text-metalDim">
                   {q.phone} {q.email && `· ${q.email}`}
@@ -37,10 +38,23 @@ export default async function AdminTekliflerPage() {
               </div>
               <StatusSelect id={q.id} value={q.status} options={[...statusOptions]} action={updateQuoteStatus} />
             </div>
-            {q.service_type && (
-              <p className="mt-3 font-mono text-xs text-spark">{q.service_type}</p>
-            )}
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-spark">
+              {q.service_type && <span>{q.service_type}</span>}
+              {q.material && <span>Malzeme: {q.material}</span>}
+              {q.quantity && <span>Adet: {q.quantity}</span>}
+              {q.delivery_date && <span>Teslim: {q.delivery_date}</span>}
+            </div>
             <p className="mt-2 text-sm text-metalDim">{q.description}</p>
+            {q.file_url && (
+              <a
+                href={q.file_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1.5 text-xs text-metal underline hover:text-spark"
+              >
+                <Paperclip size={13} /> Yüklenen dosyayı görüntüle
+              </a>
+            )}
           </div>
         ))}
       </div>

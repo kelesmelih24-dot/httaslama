@@ -8,18 +8,47 @@ type ActionResult = { ok: true } | { ok: false; error: string };
 
 const quoteSchema = z.object({
   full_name: z.string().min(2, "Ad soyad gerekli"),
+  company_name: z.string().optional(),
   phone: z.string().min(7, "Geçerli bir telefon girin"),
   email: z.string().email().optional().or(z.literal("")),
   service_type: z.string().optional(),
+  material: z.string().optional(),
+  quantity: z.coerce.number().int().positive().optional(),
+  delivery_date: z.string().optional(),
   description: z.string().min(10, "Lütfen işi biraz daha detaylandırın"),
 });
+
+const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
+
+async function uploadQuoteFile(file: File | null): Promise<string | null> {
+  if (!file || file.size === 0) return null;
+  if (file.size > MAX_FILE_BYTES) {
+    throw new Error("Dosya çok büyük (maksimum 10 MB).");
+  }
+  const db = supabaseAdmin();
+  const ext = file.name.split(".").pop() || "bin";
+  const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const { error } = await db.storage.from("teklif-dosyalari").upload(path, file, {
+    contentType: file.type || "application/octet-stream",
+  });
+  if (error) {
+    console.error("Dosya yükleme hatası:", error);
+    return null;
+  }
+  const { data } = db.storage.from("teklif-dosyalari").getPublicUrl(path);
+  return data.publicUrl;
+}
 
 export async function submitQuote(formData: FormData): Promise<ActionResult> {
   const parsed = quoteSchema.safeParse({
     full_name: formData.get("full_name"),
+    company_name: formData.get("company_name") || "",
     phone: formData.get("phone"),
     email: formData.get("email") || "",
     service_type: formData.get("service_type") || "",
+    material: formData.get("material") || "",
+    quantity: formData.get("quantity") || undefined,
+    delivery_date: formData.get("delivery_date") || "",
     description: formData.get("description"),
   });
 
@@ -27,12 +56,24 @@ export async function submitQuote(formData: FormData): Promise<ActionResult> {
     return { ok: false, error: parsed.error.issues[0].message };
   }
 
+  let fileUrl: string | null = null;
+  try {
+    fileUrl = await uploadQuoteFile(formData.get("file") as File | null);
+  } catch (err: any) {
+    return { ok: false, error: err.message || "Dosya yüklenemedi." };
+  }
+
   const db = supabaseAdmin();
   const { error } = await db.from("quotes").insert({
     full_name: parsed.data.full_name,
+    company_name: parsed.data.company_name || null,
     phone: parsed.data.phone,
     email: parsed.data.email || null,
     service_type: parsed.data.service_type || null,
+    material: parsed.data.material || null,
+    quantity: parsed.data.quantity || null,
+    delivery_date: parsed.data.delivery_date || null,
+    file_url: fileUrl,
     description: parsed.data.description,
   });
 
@@ -43,9 +84,13 @@ export async function submitQuote(formData: FormData): Promise<ActionResult> {
 
   await sendTelegramMessage(
     `🔥 <b>Yeni Teklif Talebi</b>\n` +
-      `👤 ${parsed.data.full_name}\n` +
+      `👤 ${parsed.data.full_name}${parsed.data.company_name ? ` (${parsed.data.company_name})` : ""}\n` +
       `📞 ${parsed.data.phone}\n` +
       (parsed.data.service_type ? `🛠 ${parsed.data.service_type}\n` : "") +
+      (parsed.data.material ? `⚙️ Malzeme: ${parsed.data.material}\n` : "") +
+      (parsed.data.quantity ? `🔢 Adet: ${parsed.data.quantity}\n` : "") +
+      (parsed.data.delivery_date ? `📅 Teslim tarihi: ${parsed.data.delivery_date}\n` : "") +
+      (fileUrl ? `📎 Dosya: ${fileUrl}\n` : "") +
       `📝 ${parsed.data.description}`
   );
 

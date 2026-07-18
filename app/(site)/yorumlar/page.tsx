@@ -1,4 +1,4 @@
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 import { getApprovedComments } from "@/lib/data";
 import CommentForm from "@/components/site/CommentForm";

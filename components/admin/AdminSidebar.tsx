@@ -11,6 +11,9 @@ import {
   MessageSquare,
   Settings,
   LogOut,
+  GalleryHorizontal,
+  HelpCircle,
+  Newspaper,
 } from "lucide-react";
 import { adminLogout } from "@/lib/actions/auth";
 
@@ -18,6 +21,9 @@ const items = [
   { href: "/yonetim", label: "Panel", icon: LayoutDashboard },
   { href: "/yonetim/hizmetler", label: "Hizmetler", icon: Wrench },
   { href: "/yonetim/referanslar", label: "Referanslar", icon: Images },
+  { href: "/yonetim/galeri", label: "Galeri", icon: GalleryHorizontal },
+  { href: "/yonetim/blog", label: "Blog", icon: Newspaper },
+  { href: "/yonetim/sss", label: "SSS", icon: HelpCircle },
   { href: "/yonetim/teklifler", label: "Teklif Talepleri", icon: FileText },
   { href: "/yonetim/on-siparisler", label: "Ön Siparişler", icon: PackageSearch },
   { href: "/yonetim/yorumlar", label: "Yorumlar", icon: MessageSquare },

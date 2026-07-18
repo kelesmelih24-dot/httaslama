@@ -1,10 +1,15 @@
 export const dynamic = 'force-dynamic';
 
 import { getAdminSettings } from "@/lib/admin-data";
-import { updateContactSettings, updateContentSettings } from "@/lib/actions/admin";
+import {
+  updateContactSettings,
+  updateContentSettings,
+  updateAboutSettings,
+  updateHoursSettings,
+} from "@/lib/actions/admin";
 
 export default async function AdminAyarlarPage() {
-  const { contact, content } = await getAdminSettings();
+  const { contact, content, about, hours } = await getAdminSettings();
 
   return (
     <div className="max-w-2xl space-y-10">
@@ -58,6 +63,64 @@ export default async function AdminAyarlarPage() {
           <div>
             <Label>Hakkımızda Metni</Label>
             <textarea name="about_text" rows={3} defaultValue={content.about_text} className="input" />
+          </div>
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+            Kaydet
+          </button>
+        </form>
+      </section>
+
+      <section className="spec-card rounded-sm p-6">
+        <h2 className="font-display text-sm font-semibold uppercase tracking-wider text-metal">
+          Hakkımızda Sayfası
+        </h2>
+        <form action={updateAboutSettings} className="mt-5 space-y-4">
+          <div>
+            <Label>Firma Hikayesi</Label>
+            <textarea name="story" rows={3} defaultValue={about.story} className="input" />
+          </div>
+          <div className="max-w-[160px]">
+            <Label>Deneyim Yılı</Label>
+            <input name="years_experience" type="number" defaultValue={about.years_experience} className="input" />
+          </div>
+          <div>
+            <Label>Misyon</Label>
+            <textarea name="mission" rows={2} defaultValue={about.mission} className="input" />
+          </div>
+          <div>
+            <Label>Vizyon</Label>
+            <textarea name="vision" rows={2} defaultValue={about.vision} className="input" />
+          </div>
+          <div>
+            <Label>Kalite Politikası</Label>
+            <textarea name="quality_policy" rows={2} defaultValue={about.quality_policy} className="input" />
+          </div>
+          <div>
+            <Label>İş Güvenliği Politikası</Label>
+            <textarea name="safety_policy" rows={2} defaultValue={about.safety_policy} className="input" />
+          </div>
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+            Kaydet
+          </button>
+        </form>
+      </section>
+
+      <section className="spec-card rounded-sm p-6">
+        <h2 className="font-display text-sm font-semibold uppercase tracking-wider text-metal">
+          Çalışma Saatleri
+        </h2>
+        <form action={updateHoursSettings} className="mt-5 space-y-4">
+          <div>
+            <Label>Hafta İçi</Label>
+            <input name="hafta_ici" defaultValue={hours.hafta_ici} className="input" />
+          </div>
+          <div>
+            <Label>Cumartesi</Label>
+            <input name="cumartesi" defaultValue={hours.cumartesi} className="input" />
+          </div>
+          <div>
+            <Label>Pazar</Label>
+            <input name="pazar" defaultValue={hours.pazar} className="input" />
           </div>
           <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
             Kaydet

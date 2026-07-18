@@ -1,13 +1,17 @@
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { getServiceBySlug, getServices } from "@/lib/data";
+import { getServiceBySlug } from "@/lib/data";
 
-export async function generateStaticParams() {
-  const services = await getServices();
-  return services.map((s) => ({ slug: s.slug }));
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const service = await getServiceBySlug(params.slug);
+  if (!service) return {};
+  return {
+    title: `${service.title} | HT Makina Taşlama`,
+    description: service.summary,
+  };
 }
 
 export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {

@@ -1,14 +1,18 @@
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
-import { Phone, Mail, MapPin } from "lucide-react";
-import { getServices, getSiteSettings } from "@/lib/data";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { getServices, getSiteSettings, getHoursSettings } from "@/lib/data";
 import QuoteForm from "@/components/site/QuoteForm";
 import MapEmbed from "@/components/site/MapEmbed";
 
 export const metadata = { title: "İletişim & Teklif Al | HT Makina Taşlama" };
 
 export default async function IletisimPage() {
-  const [services, settings] = await Promise.all([getServices(), getSiteSettings()]);
+  const [services, settings, hours] = await Promise.all([
+    getServices(),
+    getSiteSettings(),
+    getHoursSettings(),
+  ]);
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-20 lg:px-8">
@@ -26,6 +30,16 @@ export default async function IletisimPage() {
           </div>
           <div className="mt-6">
             <MapEmbed address={settings.address} />
+          </div>
+          <div className="spec-card mt-6 rounded-sm p-5">
+            <p className="flex items-center gap-2 font-display text-xs font-semibold uppercase tracking-wider text-metal">
+              <Clock size={15} className="text-spark" /> Çalışma Saatleri
+            </p>
+            <div className="mt-3 space-y-1 text-sm text-metalDim">
+              <p>Hafta içi: {hours.hafta_ici}</p>
+              <p>Cumartesi: {hours.cumartesi}</p>
+              <p>Pazar: {hours.pazar}</p>
+            </div>
           </div>
           <p className="mt-6 text-sm leading-relaxed text-metalDim">
             Formu doldurduğunuzda talebiniz ekibimize anında iletilir; parça ölçüsü ve malzeme

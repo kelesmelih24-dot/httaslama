@@ -5,13 +5,23 @@ tamamen yönetilebilen bir işletme sitesi.
 
 ## İçerik
 
-- **Anasayfa, Hizmetler, Referanslar, İletişim, Ön Sipariş, Yorumlar** sayfaları
-- **Teklif formu** → Supabase'e kaydedilir + Telegram'a anlık bildirim
+- **Anasayfa, Hakkımızda, Hizmetler, Galeri, Referanslar, Blog, SSS, İletişim,
+  Ön Sipariş, Yorumlar** sayfaları
+- **Teklif formu** (ad soyad, firma, telefon, e-posta, malzeme, adet, teslim
+  tarihi, teknik resim/PDF yükleme) → Supabase'e kaydedilir + Telegram'a
+  anlık bildirim
+- **Hızlı teklif al** popup'ı (sitenin her yerinde sol altta)
 - **Ön sipariş sihirbazı** (kategori → detay → onay) → Supabase + Telegram
+- **Galeri**: atölye / makine / tamamlanan iş / öncesi-sonrası kaydırmalı
+  karşılaştırma
+- **Blog/Haber sistemi** (taslak/yayında durumu ile)
 - **Yorum/yorum onay sistemi** (yayınlanmadan önce admin onayı gerekir)
-- **Yönetim paneli** (`/yonetim`) — hizmetler, referanslar, teklifler, ön
-  siparişler, yorumlar ve site metinleri buradan yönetilir; koda dokunmaya
-  gerek yoktur
+- **SEO**: her sayfada özel başlık/açıklama, otomatik `sitemap.xml` ve
+  `robots.txt` (yönetim paneli arama motorlarından gizli tutulur)
+- **Yönetim paneli** (`/yonetim`) — hizmetler, referanslar, galeri, blog,
+  SSS, teklifler, ön siparişler, yorumlar, hakkımızda metinleri, çalışma
+  saatleri ve iletişim bilgileri buradan yönetilir; koda dokunmaya gerek
+  yoktur
 - Yönetim girişi **hiçbir yerde link olarak görünmez** (menüde, footer'da vs.
   yok); sadece `/yonetim` adresine giden bilir
 
@@ -21,10 +31,16 @@ tamamen yönetilebilen bir işletme sitesi.
 
 1. [supabase.com](https://supabase.com) üzerinden ücretsiz bir proje açın.
 2. Sol menüden **SQL Editor**'a girin, `supabase/schema.sql` dosyasının
-   tamamını yapıştırıp **Run**'a basın.
+   tamamını yapıştırıp **Run**'a basın. (Bu, tüm tabloları — hizmetler,
+   referanslar, teklifler, ön siparişler, yorumlar, galeri, SSS, blog — ve
+   teknik resim/PDF yüklemeleri için `teklif-dosyalari` adında bir storage
+   bucket'ı oluşturur.)
 3. Ardından `supabase/seed.sql` dosyasını da aynı şekilde çalıştırın (bu,
    Batuhan Usta'nın 4 gerçek hizmetini ekler).
-4. Sol menüden **Project Settings → API** sayfasına gidin, şu 3 değeri not
+4. **Daha önce eski bir sürümü kurduysanız**: `supabase/migrate_v2_expansion.sql`
+   dosyasını çalıştırın, mevcut verileriniz silinmeden yeni sütun/tablolar
+   eklenir.
+5. Sol menüden **Project Settings → API** sayfasına gidin, şu 3 değeri not
    edin:
    - `Project URL` → `NEXT_PUBLIC_SUPABASE_URL`
    - `anon public` key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
@@ -97,7 +113,9 @@ gizli anahtarlarınız güvende kalır.
 
 1. [vercel.com](https://vercel.com) üzerinden GitHub reponuzu import edin.
 2. **Environment Variables** kısmına `.env.local` içindeki tüm değişkenleri
-   tek tek ekleyin (Production + Preview için).
+   tek tek ekleyin (Production + Preview için). `NEXT_PUBLIC_SITE_URL`'i
+   gerçek alan adınızla (örn. `https://www.htmakinataslama.com`) doldurmayı
+   unutmayın — bu, `sitemap.xml` dosyasının doğru linkler üretmesini sağlar.
 3. **Deploy**'a basın.
 4. Deploy tamamlandıktan sonra Supabase panelinden **Authentication → URL
    Configuration** veya **API → CORS** ayarlarına gerek yoktur (bu proje
@@ -114,11 +132,17 @@ gizli anahtarlarınız güvende kalır.
   - **Referanslar**: logo + isim olarak ekleyin (görseli önce örneğin
     [imgur.com](https://imgur.com) gibi bir yere yükleyip linkini yapıştırmanız
     yeterli)
-  - **Teklif Talepleri**: gelen talepleri görün, durumunu güncelleyin
+  - **Galeri**: atölye/makine/tamamlanan iş fotoğrafları ve öncesi-sonrası
+    karşılaştırmaları ekleyin
+  - **Blog**: yazı ekleyin, yayınlamadan önce taslak olarak saklayın
+  - **SSS**: soru-cevap ekleyin/düzenleyin
+  - **Teklif Talepleri**: gelen talepleri (yüklenen dosya dahil) görün,
+    durumunu güncelleyin
   - **Ön Siparişler**: gelen ön siparişleri görün, durumunu güncelleyin
   - **Yorumlar**: yayınlamadan önce onaylayın/reddedin
-  - **Site Ayarları**: telefon, WhatsApp, e-posta, adres ve anasayfa
-    metinlerini güncelleyin
+  - **Site Ayarları**: telefon, WhatsApp, e-posta, adres, çalışma saatleri,
+    anasayfa metinleri ve Hakkımızda içeriğini (hikaye, misyon, vizyon,
+    kalite/iş güvenliği politikası) güncelleyin
 
 Değişiklikler kaydedildiği anda siteye yansır, yeniden deploy gerekmez.
 
