@@ -11,10 +11,8 @@ export type Service = {
 
 export type Reference = {
   id: string;
-  client_name: string;
-  project_title: string;
-  description: string | null;
-  image_url: string | null;
+  name: string;
+  logo_url: string;
   order_index: number;
   created_at: string;
 };

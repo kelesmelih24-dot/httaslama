@@ -111,9 +111,9 @@ gizli anahtarlarınız güvende kalır.
 - Kullanıcı adı/şifre: `.env` dosyasındaki `ADMIN_USERNAME` / `ADMIN_PASSWORD`
 - Panelden yapılabilecekler:
   - **Hizmetler**: ekle / düzenle / sil
-  - **Referanslar**: ekle / düzenle / sil (görsel için bir URL yapıştırmanız
-    yeterli — görseli önce örneğin [imgur.com](https://imgur.com) gibi bir
-    yere yükleyip linkini kullanabilirsiniz)
+  - **Referanslar**: logo + isim olarak ekleyin (görseli önce örneğin
+    [imgur.com](https://imgur.com) gibi bir yere yükleyip linkini yapıştırmanız
+    yeterli)
   - **Teklif Talepleri**: gelen talepleri görün, durumunu güncelleyin
   - **Ön Siparişler**: gelen ön siparişleri görün, durumunu güncelleyin
   - **Yorumlar**: yayınlamadan önce onaylayın/reddedin

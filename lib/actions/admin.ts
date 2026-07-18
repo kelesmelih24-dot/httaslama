@@ -55,10 +55,8 @@ export async function upsertReference(formData: FormData) {
   const db = supabaseAdmin();
   const id = String(formData.get("id") || "");
   const payload = {
-    client_name: String(formData.get("client_name") || ""),
-    project_title: String(formData.get("project_title") || ""),
-    description: String(formData.get("description") || "") || null,
-    image_url: String(formData.get("image_url") || "") || null,
+    name: String(formData.get("name") || ""),
+    logo_url: String(formData.get("logo_url") || ""),
     order_index: Number(formData.get("order_index") || 0),
   };
   if (id) {

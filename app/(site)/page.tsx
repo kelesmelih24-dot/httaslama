@@ -97,30 +97,22 @@ export default async function HomePage() {
 
       {/* ---------------- REFERANSLAR ÖNİZLEME ---------------- */}
       {references.length > 0 && (
-        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+        <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <div className="dim-line mb-4 w-fit">REFERANSLAR</div>
-              <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-metal sm:text-4xl">
-                Tamamlanan işlerden örnekler
-              </h2>
-            </div>
+            <div className="dim-line w-fit">BİRLİKTE ÇALIŞTIĞIMIZ FİRMALAR</div>
             <Link href="/referanslar" className="font-display text-sm font-semibold uppercase tracking-wider text-spark hover:underline">
               Tümünü Gör →
             </Link>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {references.slice(0, 3).map((r) => (
-              <div key={r.id} className="spec-card overflow-hidden rounded-sm">
-                {r.image_url && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={r.image_url} alt={r.project_title} className="h-48 w-full object-cover" />
-                )}
-                <div className="p-5">
-                  <h3 className="font-display text-base font-semibold text-metal">{r.project_title}</h3>
-                  <p className="mt-1 text-xs uppercase tracking-wider text-metalDim">{r.client_name}</p>
-                  {r.description && <p className="mt-3 text-sm text-metalDim">{r.description}</p>}
-                </div>
+          <div className="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+            {references.slice(0, 6).map((r) => (
+              <div key={r.id} className="flex items-center justify-center rounded-sm border border-steel2 bg-steel p-5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={r.logo_url}
+                  alt={r.name}
+                  className="h-10 w-full object-contain grayscale transition hover:grayscale-0"
+                />
               </div>
             ))}
           </div>

@@ -11,7 +11,9 @@ export default async function AdminReferanslarPage() {
     <div>
       <h1 className="font-display text-2xl font-bold uppercase tracking-tight text-metal">Referanslar</h1>
       <p className="mt-1 text-sm text-metalDim">
-        Sitede referanslar sayfasında ve anasayfada gösterilen tamamlanmış işler.
+        Anasayfa ve referanslar sayfasında logo + isim olarak gösterilen firmalar.
+        Logoyu önce bir görsel barındırma sitesine (örn. imgur.com) yükleyip
+        buraya linkini yapıştırmanız yeterli.
       </p>
 
       <details className="spec-card mt-8 rounded-sm p-6">
@@ -26,13 +28,17 @@ export default async function AdminReferanslarPage() {
         </form>
       </details>
 
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {references.map((r) => {
           const boundDelete = deleteReference.bind(null, r.id);
           return (
             <details key={r.id} className="spec-card rounded-sm p-6">
-              <summary className="cursor-pointer font-display text-sm font-semibold uppercase tracking-wide text-metal">
-                {r.project_title} — <span className="text-metalDim">{r.client_name}</span>
+              <summary className="flex cursor-pointer items-center gap-3 font-display text-sm font-semibold uppercase tracking-wide text-metal">
+                {r.logo_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={r.logo_url} alt={r.name} className="h-8 w-auto object-contain" />
+                )}
+                {r.name}
               </summary>
               <form action={upsertReference} className="mt-6 space-y-4">
                 <input type="hidden" name="id" value={r.id} />
@@ -60,24 +66,16 @@ function ReferenceFields({ defaults }: { defaults?: any }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <div>
-        <Label>Müşteri Adı</Label>
-        <input name="client_name" required defaultValue={defaults?.client_name} className="input" />
-      </div>
-      <div>
-        <Label>Proje / İş Başlığı</Label>
-        <input name="project_title" required defaultValue={defaults?.project_title} className="input" />
-      </div>
-      <div className="sm:col-span-2">
-        <Label>Açıklama</Label>
-        <textarea name="description" rows={2} defaultValue={defaults?.description} className="input" />
-      </div>
-      <div>
-        <Label>Görsel URL</Label>
-        <input name="image_url" defaultValue={defaults?.image_url} placeholder="https://..." className="input" />
+        <Label>Firma / Marka Adı</Label>
+        <input name="name" required defaultValue={defaults?.name} className="input" />
       </div>
       <div>
         <Label>Sıra No</Label>
         <input name="order_index" type="number" defaultValue={defaults?.order_index ?? 0} className="input" />
+      </div>
+      <div className="sm:col-span-2">
+        <Label>Logo Görsel URL</Label>
+        <input name="logo_url" required defaultValue={defaults?.logo_url} placeholder="https://..." className="input" />
       </div>
     </div>
   );

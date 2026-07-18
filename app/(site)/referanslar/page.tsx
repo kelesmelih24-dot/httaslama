@@ -9,29 +9,32 @@ export default async function ReferanslarPage() {
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-      <div className="dim-line mb-4 w-fit">TAMAMLANAN İŞLER</div>
+      <div className="dim-line mb-4 w-fit">BİRLİKTE ÇALIŞTIĞIMIZ FİRMALAR</div>
       <h1 className="max-w-2xl font-display text-4xl font-bold uppercase tracking-tight text-metal">
         Referanslarımız
       </h1>
 
       {references.length === 0 ? (
         <p className="mt-8 max-w-md text-sm text-metalDim">
-          Henüz yayınlanmış referans bulunmuyor. Yakında tamamlanan işlerimizden örnekler burada
-          yer alacak.
+          Henüz yayınlanmış referans bulunmuyor. Yakında birlikte çalıştığımız
+          firmalar burada yer alacak.
         </p>
       ) : (
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
           {references.map((r) => (
-            <div key={r.id} className="spec-card overflow-hidden rounded-sm">
-              {r.image_url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={r.image_url} alt={r.project_title} className="h-52 w-full object-cover" />
-              )}
-              <div className="p-5">
-                <h3 className="font-display text-base font-semibold text-metal">{r.project_title}</h3>
-                <p className="mt-1 text-xs uppercase tracking-wider text-metalDim">{r.client_name}</p>
-                {r.description && <p className="mt-3 text-sm text-metalDim">{r.description}</p>}
-              </div>
+            <div
+              key={r.id}
+              className="spec-card flex flex-col items-center justify-center gap-3 rounded-sm p-6 text-center"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={r.logo_url}
+                alt={r.name}
+                className="h-14 w-full object-contain grayscale transition hover:grayscale-0"
+              />
+              <p className="font-display text-xs font-semibold uppercase tracking-wide text-metalDim">
+                {r.name}
+              </p>
             </div>
           ))}
         </div>
