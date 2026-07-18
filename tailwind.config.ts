@@ -5,13 +5,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        graphite: "#15171A",
-        steel: "#23262B",
-        steel2: "#2E3339",
-        metal: "#C8CDD2",
-        metalDim: "#8A9096",
+        graphite: "#0D0D0D",
+        steel: "#181818",
+        steel2: "#2B2B2B",
+        metal: "#FFFFFF",
+        metalDim: "#9A9A9A",
         spark: "#D8301F",
-        ember: "#F2523F",
+        ember: "#A8241A",
         paper: "#F4F3EF",
       },
       fontFamily: {
@@ -20,7 +20,7 @@ const config: Config = {
         mono: ["var(--font-mono)", "monospace"],
       },
       backgroundImage: {
-        "spark-gradient": "linear-gradient(90deg, #D8301F 0%, #F2523F 100%)",
+        "spark-gradient": "linear-gradient(90deg, #D8301F 0%, #A8241A 100%)",
         "brushed-metal":
           "repeating-linear-gradient(100deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 3px)",
       },

@@ -11,13 +11,13 @@ html {
 }
 
 body {
-  background-color: #15171a;
-  color: #c8cdd2;
+  background-color: #0d0d0d;
+  color: #ffffff;
 }
 
 ::selection {
   background-color: #d8301f;
-  color: #15171a;
+  color: #0d0d0d;
 }
 
 /* Klavye odağı görünürlüğü */
@@ -44,9 +44,10 @@ select:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #8a9096;
+  color: #d8301f;
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.05em;
 }
 .dim-line::before,
@@ -56,23 +57,23 @@ select:focus-visible {
   height: 1px;
   background: repeating-linear-gradient(
     to right,
-    #8a9096 0,
-    #8a9096 4px,
+    #9a9a9a 0,
+    #9a9a9a 4px,
     transparent 4px,
     transparent 8px
   );
 }
 .dim-line::before {
-  border-left: 1px solid #8a9096;
+  border-left: 1px solid #9a9a9a;
 }
 .dim-line::after {
-  border-right: 1px solid #8a9096;
+  border-right: 1px solid #9a9a9a;
 }
 
 .spec-card {
   position: relative;
-  background: #1c1f23;
-  border: 1px solid #2e3339;
+  background: #141414;
+  border: 1px solid #2b2b2b;
 }
 .spec-card::before {
   content: "";
@@ -81,7 +82,7 @@ select:focus-visible {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #d8301f, #f2523f);
+  background: linear-gradient(90deg, #d8301f, #a8241a);
   transition: width 0.35s ease;
 }
 .spec-card:hover::before {
