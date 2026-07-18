@@ -219,8 +219,7 @@ export async function updateAboutSettings(formData: FormData) {
 export async function updateHoursSettings(formData: FormData) {
   const db = supabaseAdmin();
   const value = {
-    hafta_ici: String(formData.get("hafta_ici") || ""),
-    cumartesi: String(formData.get("cumartesi") || ""),
+    hafta_ici_cumartesi: String(formData.get("hafta_ici_cumartesi") || ""),
     pazar: String(formData.get("pazar") || ""),
   };
   await db.from("site_settings").upsert({ key: "hours", value });

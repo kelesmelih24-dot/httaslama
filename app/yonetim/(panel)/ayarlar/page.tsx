@@ -111,16 +111,12 @@ export default async function AdminAyarlarPage() {
         </h2>
         <form action={updateHoursSettings} className="mt-5 space-y-4">
           <div>
-            <Label>Hafta İçi</Label>
-            <input name="hafta_ici" defaultValue={hours.hafta_ici} className="input" />
-          </div>
-          <div>
-            <Label>Cumartesi</Label>
-            <input name="cumartesi" defaultValue={hours.cumartesi} className="input" />
+            <Label>Pazartesi - Cumartesi</Label>
+            <input name="hafta_ici_cumartesi" defaultValue={hours.hafta_ici_cumartesi} placeholder="08:30 - 18:30" className="input" />
           </div>
           <div>
             <Label>Pazar</Label>
-            <input name="pazar" defaultValue={hours.pazar} className="input" />
+            <input name="pazar" defaultValue={hours.pazar} placeholder="Kapalı" className="input" />
           </div>
           <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
             Kaydet

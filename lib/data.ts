@@ -52,7 +52,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   address: "İvedik OSB, 1459. Sokak No:7, 06374 Yenimahalle/Ankara",
   hero_title: "MİKRON HASSASİYETİNDE TAŞLAMA",
   hero_subtitle:
-    "Batuhan Usta ve ekibi; delik, silindirik ve satıh taşlama işlerinde hızlı, ölçülü ve garantili çözüm sunar.",
+    "Uzman ekibimiz; delik, silindirik ve satıh taşlama işlerinde hızlı, ölçülü ve garantili çözüm sunar.",
   about_text:
     "HT Makina Taşlama, hassas metal işleme ihtiyaçlarında mikron toleransla çalışır.",
 };
@@ -66,7 +66,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 
 const DEFAULT_ABOUT: AboutSettings = {
   story:
-    "HT Makina Taşlama, Batuhan Usta'nın yılların verdiği tecrübesiyle kuruldu.",
+    "HT Makina Taşlama, yılların verdiği tecrübeyle kuruldu.",
   years_experience: 10,
   mission: "Her parçayı istenen toleransta, zamanında ve ilk seferde doğru teslim etmek.",
   vision: "Hassas metal işlemede bölgenin ilk tercih edilen atölyesi olmak.",
@@ -75,8 +75,7 @@ const DEFAULT_ABOUT: AboutSettings = {
 };
 
 const DEFAULT_HOURS: HoursSettings = {
-  hafta_ici: "08:00 - 18:00",
-  cumartesi: "09:00 - 14:00",
+  hafta_ici_cumartesi: "08:30 - 18:30",
   pazar: "Kapalı",
 };
 

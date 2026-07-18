@@ -17,12 +17,11 @@ export default function Footer({
             <span className="text-spark">HT</span> MAKİNA TAŞLAMA
           </div>
           <p className="mt-3 max-w-xs text-sm text-metalDim">
-            Batuhan Usta ve ekibi ile hassas metal işlemede mikron toleransla çalışan
+            HT Makina Taşlama ekibi ile hassas metal işlemede mikron toleransla çalışan
             taşlama atölyesi.
           </p>
           <div className="mt-5 space-y-1.5 text-sm text-metalDim">
-            <p className="flex items-center gap-2"><Clock size={14} className="text-spark shrink-0" /> Hafta içi: {hours.hafta_ici}</p>
-            <p className="flex items-center gap-2 pl-[22px]">Cumartesi: {hours.cumartesi}</p>
+            <p className="flex items-center gap-2"><Clock size={14} className="text-spark shrink-0" /> Pazartesi - Cumartesi: {hours.hafta_ici_cumartesi}</p>
             <p className="flex items-center gap-2 pl-[22px]">Pazar: {hours.pazar}</p>
           </div>
         </div>
@@ -66,7 +65,17 @@ export default function Footer({
       </div>
 
       <div className="border-t border-steel2 py-6 text-center text-xs text-metalDim">
-        © {new Date().getFullYear()} HT Makina Taşlama. Tüm hakları saklıdır.
+        <p>© {new Date().getFullYear()} HT Makina Taşlama. Tüm hakları saklıdır.</p>
+        <p className="mt-1.5">
+          <a
+            href="https://mksoftware.com.tr/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-spark"
+          >
+            MK Software tarafından yapılmıştır — mksoftware.com.tr
+          </a>
+        </p>
       </div>
     </footer>
   );

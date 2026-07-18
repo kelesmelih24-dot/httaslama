@@ -12,7 +12,7 @@ export default async function HakkimizdaPage() {
     <section className="mx-auto max-w-5xl px-5 py-20 lg:px-8">
       <div className="dim-line mb-4 w-fit">HAKKIMIZDA</div>
       <h1 className="max-w-2xl font-display text-4xl font-bold uppercase tracking-tight text-metal">
-        Batuhan Usta ve ekibi
+        Uzman Ekibimiz
       </h1>
 
       <div className="mt-10 grid gap-10 lg:grid-cols-3">

@@ -36,7 +36,10 @@ tamamen yönetilebilen bir işletme sitesi.
    teknik resim/PDF yüklemeleri için `teklif-dosyalari` adında bir storage
    bucket'ı oluşturur.)
 3. Ardından `supabase/seed.sql` dosyasını da aynı şekilde çalıştırın (bu,
-   Batuhan Usta'nın 4 gerçek hizmetini ekler).
+   işletmenizin 4 gerçek hizmetini ekler).
+4. `supabase/seed_content.sql` dosyasını çalıştırın — bu, SSS ve Blog
+   bölümlerinin boş görünmemesi için hazır içerik ekler (istediğiniz zaman
+   admin panelden düzenleyebilir veya silebilirsiniz).
 4. **Daha önce eski bir sürümü kurduysanız**: `supabase/migrate_v2_expansion.sql`
    dosyasını çalıştırın, mevcut verileriniz silinmeden yeni sütun/tablolar
    eklenir.

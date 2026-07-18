@@ -15,7 +15,7 @@ export default async function HizmetlerPage() {
         Taşlama hizmetlerimiz
       </h1>
       <p className="mt-4 max-w-xl text-sm leading-relaxed text-metalDim">
-        Batuhan Usta ve ekibi tarafından sunulan temel teknik hizmetler. Parça ölçünüzü ve
+        Uzman ekibimiz tarafından sunulan temel teknik hizmetler. Parça ölçünüzü ve
         malzeme türünü paylaştığınızda tezgah kapasitemizin işinize uygunluğunu doğrudan
         değerlendirebiliriz.
       </p>

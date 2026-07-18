@@ -111,7 +111,6 @@ export type AboutSettings = {
 };
 
 export type HoursSettings = {
-  hafta_ici: string;
-  cumartesi: string;
+  hafta_ici_cumartesi: string;
   pazar: string;
 };

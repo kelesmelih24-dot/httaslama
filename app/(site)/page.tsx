@@ -1,18 +1,29 @@
 export const dynamic = 'force-dynamic';
 
 import Link from "next/link";
-import { ArrowRight, CircleDot, Layers, Sparkles, Wind } from "lucide-react";
-import { getServices, getReferences, getApprovedComments, getSiteSettings } from "@/lib/data";
+import { ArrowRight, CircleDot, Layers, Sparkles, Wind, Target } from "lucide-react";
+import {
+  getServices,
+  getReferences,
+  getApprovedComments,
+  getSiteSettings,
+  getAboutSettings,
+  getGallery,
+  getPublishedPosts,
+} from "@/lib/data";
 import HeroDiagram from "@/components/site/HeroDiagram";
 import ServiceCard from "@/components/site/ServiceCard";
 import StarRating from "@/components/site/StarRating";
 
 export default async function HomePage() {
-  const [services, references, comments, settings] = await Promise.all([
+  const [services, references, comments, settings, about, gallery, posts] = await Promise.all([
     getServices(),
     getReferences(),
     getApprovedComments(),
     getSiteSettings(),
+    getAboutSettings(),
+    getGallery(),
+    getPublishedPosts(),
   ]);
 
   return (
@@ -23,7 +34,7 @@ export default async function HomePage() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div className="animate-riseIn">
             <div className="dim-line mb-6 w-fit">
-              <span className="whitespace-nowrap">EST. ATÖLYE — BATUHAN USTA</span>
+              <span className="whitespace-nowrap">EST. ATÖLYE — HASSAS TAŞLAMA</span>
             </div>
             <h1 className="font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-metal text-balance sm:text-5xl lg:text-6xl">
               {settings.hero_title}
@@ -63,6 +74,32 @@ export default async function HomePage() {
           {services.map((s, i) => (
             <ServiceCard key={s.id} service={s} index={i} />
           ))}
+        </div>
+      </section>
+
+      {/* ---------------- HAKKIMIZDA ÖNİZLEME ---------------- */}
+      <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-3 lg:items-center">
+          <div className="lg:col-span-2">
+            <div className="dim-line mb-4 w-fit">HAKKIMIZDA</div>
+            <h2 className="max-w-xl font-display text-3xl font-bold uppercase tracking-tight text-metal sm:text-4xl">
+              Mikron hassasiyetinde çözüm ortağınız
+            </h2>
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-metalDim">{about.story}</p>
+            <Link
+              href="/hakkimizda"
+              className="mt-6 inline-flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-wider text-spark hover:underline"
+            >
+              Hikayemizi Okuyun <ArrowRight size={16} />
+            </Link>
+          </div>
+          <div className="spec-card flex flex-col items-center justify-center rounded-sm p-8 text-center">
+            <Target className="text-spark" size={22} />
+            <span className="mt-3 font-display text-5xl font-bold text-spark">{about.years_experience}+</span>
+            <span className="mt-2 font-display text-xs font-semibold uppercase tracking-wider text-metalDim">
+              Yıllık Deneyim
+            </span>
+          </div>
         </div>
       </section>
 
@@ -119,6 +156,31 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* ---------------- GALERİ ÖNİZLEME ---------------- */}
+      {gallery.length > 0 && (
+        <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="dim-line mb-4 w-fit">GALERİ</div>
+              <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-metal sm:text-4xl">
+                Atölyeden kareler
+              </h2>
+            </div>
+            <Link href="/galeri" className="font-display text-sm font-semibold uppercase tracking-wider text-spark hover:underline">
+              Tümünü Gör →
+            </Link>
+          </div>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {gallery.slice(0, 4).map((item) => (
+              <div key={item.id} className="spec-card overflow-hidden rounded-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={item.image_url} alt={item.title} className="aspect-square w-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ---------------- YORUMLAR ÖNİZLEME ---------------- */}
       {comments.length > 0 && (
         <section className="border-t border-steel2 bg-steel">
@@ -138,6 +200,37 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* ---------------- BLOG ÖNİZLEME ---------------- */}
+      {posts.length > 0 && (
+        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="dim-line mb-4 w-fit">HABERLER & YAZILAR</div>
+              <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-metal sm:text-4xl">
+                Blogumuzdan son yazılar
+              </h2>
+            </div>
+            <Link href="/blog" className="font-display text-sm font-semibold uppercase tracking-wider text-spark hover:underline">
+              Tümünü Gör →
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+            {posts.slice(0, 3).map((p) => (
+              <Link key={p.id} href={`/blog/${p.slug}`} className="spec-card overflow-hidden rounded-sm">
+                {p.cover_image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={p.cover_image_url} alt={p.title} className="aspect-[16/9] w-full object-cover" />
+                )}
+                <div className="p-5">
+                  <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-metal">{p.title}</h3>
+                  {p.excerpt && <p className="mt-2 text-sm text-metalDim">{p.excerpt}</p>}
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       )}

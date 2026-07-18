@@ -36,8 +36,7 @@ export default async function IletisimPage() {
               <Clock size={15} className="text-spark" /> Çalışma Saatleri
             </p>
             <div className="mt-3 space-y-1 text-sm text-metalDim">
-              <p>Hafta içi: {hours.hafta_ici}</p>
-              <p>Cumartesi: {hours.cumartesi}</p>
+              <p>Pazartesi - Cumartesi: {hours.hafta_ici_cumartesi}</p>
               <p>Pazar: {hours.pazar}</p>
             </div>
           </div>
