@@ -8,9 +8,9 @@ export default function HeroDiagram() {
     >
       <defs>
         <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#FF5A1F" stopOpacity="0" />
-          <stop offset="50%" stopColor="#FFA630" stopOpacity="1" />
-          <stop offset="100%" stopColor="#FF5A1F" stopOpacity="0" />
+          <stop offset="0%" stopColor="#D8301F" stopOpacity="0" />
+          <stop offset="50%" stopColor="#F2523F" stopOpacity="1" />
+          <stop offset="100%" stopColor="#D8301F" stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -22,7 +22,7 @@ export default function HeroDiagram() {
         <circle r="120" fill="none" stroke="#2E3339" strokeWidth="1" />
         <circle r="86" fill="none" stroke="#3A4046" strokeWidth="1" strokeDasharray="2 4" />
         <circle r="52" fill="#23262B" stroke="#8A9096" strokeWidth="1.5" />
-        <circle r="14" fill="#15171A" stroke="#FF5A1F" strokeWidth="2" />
+        <circle r="14" fill="#15171A" stroke="#D8301F" strokeWidth="2" />
 
         {/* Taşlama diski temas noktası */}
         <g transform="rotate(-28)">
@@ -52,7 +52,7 @@ export default function HeroDiagram() {
       <text x="24" y="36" fill="#8A9096" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.05em">
         DETAY A — SİLİNDİRİK YÜZEY
       </text>
-      <text x="24" y="52" fill="#FF5A1F" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.05em">
+      <text x="24" y="52" fill="#D8301F" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.05em">
         ÖLÇEK 2:1
       </text>
     </svg>

@@ -10,8 +10,8 @@ const config: Config = {
         steel2: "#2E3339",
         metal: "#C8CDD2",
         metalDim: "#8A9096",
-        spark: "#FF5A1F",
-        ember: "#FFA630",
+        spark: "#D8301F",
+        ember: "#F2523F",
         paper: "#F4F3EF",
       },
       fontFamily: {
@@ -20,7 +20,7 @@ const config: Config = {
         mono: ["var(--font-mono)", "monospace"],
       },
       backgroundImage: {
-        "spark-gradient": "linear-gradient(90deg, #FF5A1F 0%, #FFA630 100%)",
+        "spark-gradient": "linear-gradient(90deg, #D8301F 0%, #F2523F 100%)",
         "brushed-metal":
           "repeating-linear-gradient(100deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 3px)",
       },

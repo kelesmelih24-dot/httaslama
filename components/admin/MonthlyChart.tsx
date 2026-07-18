@@ -16,8 +16,8 @@ export default function MonthlyChart({ data }: { data: MonthlyPoint[] }) {
             labelStyle={{ color: "#C8CDD2" }}
           />
           <Legend wrapperStyle={{ fontSize: 12 }} />
-          <Bar dataKey="teklif" name="Teklif" fill="#FF5A1F" radius={[2, 2, 0, 0]} />
-          <Bar dataKey="onSiparis" name="Ön Sipariş" fill="#FFA630" radius={[2, 2, 0, 0]} />
+          <Bar dataKey="teklif" name="Teklif" fill="#D8301F" radius={[2, 2, 0, 0]} />
+          <Bar dataKey="onSiparis" name="Ön Sipariş" fill="#F2523F" radius={[2, 2, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

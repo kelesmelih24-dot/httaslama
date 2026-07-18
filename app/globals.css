@@ -16,7 +16,7 @@ body {
 }
 
 ::selection {
-  background-color: #ff5a1f;
+  background-color: #d8301f;
   color: #15171a;
 }
 
@@ -26,7 +26,7 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #ff5a1f;
+  outline: 2px solid #d8301f;
   outline-offset: 2px;
 }
 
@@ -81,7 +81,7 @@ select:focus-visible {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #ff5a1f, #ffa630);
+  background: linear-gradient(90deg, #d8301f, #f2523f);
   transition: width 0.35s ease;
 }
 .spec-card:hover::before {
