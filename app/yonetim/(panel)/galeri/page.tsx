@@ -28,7 +28,7 @@ export default async function AdminGaleriPage() {
         </summary>
         <form action={upsertGalleryItem} className="mt-6 space-y-4">
           <GalleryFields />
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -48,7 +48,7 @@ export default async function AdminGaleriPage() {
                 <input type="hidden" name="id" value={item.id} />
                 <GalleryFields defaults={item} />
                 <div className="flex items-center justify-between">
-                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
                     Kaydet
                   </button>
                   <form action={boundDelete}>

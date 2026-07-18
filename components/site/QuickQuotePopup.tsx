@@ -24,7 +24,7 @@ export default function QuickQuotePopup({ services }: { services: Service[] }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-spark-gradient fixed bottom-6 left-6 z-50 flex items-center gap-2 rounded-sm px-4 py-3 font-display text-xs font-semibold uppercase tracking-wider text-graphite shadow-lg shadow-black/40 transition hover:opacity-90"
+        className="bg-spark-gradient fixed bottom-6 left-6 z-50 flex items-center gap-2 rounded-sm px-4 py-3 font-display text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-black/40 transition hover:opacity-90"
       >
         <Zap size={16} /> Hızlı Teklif Al
       </button>
@@ -74,7 +74,7 @@ export default function QuickQuotePopup({ services }: { services: Service[] }) {
                 <button
                   type="submit"
                   disabled={pending}
-                  className="bg-spark-gradient flex w-full items-center justify-center gap-2 rounded-sm px-5 py-3 font-display text-xs font-semibold uppercase tracking-wider text-graphite disabled:opacity-60"
+                  className="bg-spark-gradient flex w-full items-center justify-center gap-2 rounded-sm px-5 py-3 font-display text-xs font-semibold uppercase tracking-wider text-white disabled:opacity-60"
                 >
                   {pending && <Loader2 className="animate-spin" size={14} />}
                   Gönder

@@ -43,7 +43,7 @@ export default function CookieConsent() {
         </p>
         <button
           onClick={accept}
-          className="bg-spark-gradient shrink-0 rounded-sm px-5 py-2 font-display text-xs font-semibold uppercase tracking-wider text-graphite"
+          className="bg-spark-gradient shrink-0 rounded-sm px-5 py-2 font-display text-xs font-semibold uppercase tracking-wider text-white"
         >
           Anladım
         </button>

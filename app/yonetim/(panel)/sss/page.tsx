@@ -18,7 +18,7 @@ export default async function AdminSssPage() {
         </summary>
         <form action={upsertFaq} className="mt-6 space-y-4">
           <FaqFields />
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -36,7 +36,7 @@ export default async function AdminSssPage() {
                 <input type="hidden" name="id" value={f.id} />
                 <FaqFields defaults={f} />
                 <div className="flex items-center justify-between">
-                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
                     Kaydet
                   </button>
                   <form action={boundDelete}>

@@ -23,6 +23,8 @@ const config: Config = {
         "spark-gradient": "linear-gradient(90deg, #D8301F 0%, #A8241A 100%)",
         "brushed-metal":
           "repeating-linear-gradient(100deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 3px)",
+        "brushed-metal-light":
+          "repeating-linear-gradient(100deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 3px)",
       },
       keyframes: {
         spark: {

@@ -22,7 +22,7 @@ export default async function AdminReferanslarPage() {
         </summary>
         <form action={upsertReference} className="mt-6 space-y-4">
           <ReferenceFields />
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -44,7 +44,7 @@ export default async function AdminReferanslarPage() {
                 <input type="hidden" name="id" value={r.id} />
                 <ReferenceFields defaults={r} />
                 <div className="flex items-center justify-between">
-                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
                     Kaydet
                   </button>
                   <form action={boundDelete}>

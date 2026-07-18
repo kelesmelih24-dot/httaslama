@@ -81,7 +81,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
             <div
               className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-mono text-xs ${
                 step > i + 1
-                  ? "bg-spark text-graphite"
+                  ? "bg-spark text-white"
                   : step === i + 1
                     ? "border border-spark text-spark"
                     : "border border-steel2 text-metalDim"
@@ -120,7 +120,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
             <button
               onClick={next}
               disabled={!data.category}
-              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-graphite disabled:opacity-40"
+              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-white disabled:opacity-40"
             >
               Devam <ChevronRight size={16} />
             </button>
@@ -152,7 +152,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
             </button>
             <button
               onClick={next}
-              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-graphite"
+              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-white"
             >
               Devam <ChevronRight size={16} />
             </button>
@@ -187,7 +187,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
             </button>
             <button
               onClick={next}
-              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-graphite"
+              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-white"
             >
               Devam <ChevronRight size={16} />
             </button>
@@ -227,7 +227,7 @@ export default function PreorderWizard({ services }: { services: Service[] }) {
             <button
               onClick={handleConfirm}
               disabled={pending || !data.full_name || !data.phone}
-              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-graphite disabled:opacity-40"
+              className="bg-spark-gradient flex items-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-white disabled:opacity-40"
             >
               {pending && <Loader2 className="animate-spin" size={16} />}
               Ön Siparişi Onayla

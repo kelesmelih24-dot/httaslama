@@ -123,7 +123,7 @@ export default function QuoteForm({ services }: { services: Service[] }) {
       <button
         type="submit"
         disabled={pending}
-        className="bg-spark-gradient flex w-full items-center justify-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-graphite transition hover:opacity-90 disabled:opacity-60"
+        className="bg-spark-gradient flex w-full items-center justify-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-white transition hover:opacity-90 disabled:opacity-60"
       >
         {pending && <Loader2 className="animate-spin" size={16} />}
         Teklif Talebi Gönder

@@ -42,7 +42,7 @@ export default async function AdminAyarlarPage() {
             <Label>Adres</Label>
             <textarea name="address" rows={2} defaultValue={contact.address} className="input" />
           </div>
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -65,7 +65,7 @@ export default async function AdminAyarlarPage() {
             <Label>Hakkımızda Metni</Label>
             <textarea name="about_text" rows={3} defaultValue={content.about_text} className="input" />
           </div>
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -100,7 +100,7 @@ export default async function AdminAyarlarPage() {
             <Label>İş Güvenliği Politikası</Label>
             <textarea name="safety_policy" rows={2} defaultValue={about.safety_policy} className="input" />
           </div>
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -119,7 +119,7 @@ export default async function AdminAyarlarPage() {
             <Label>Pazar</Label>
             <input name="pazar" defaultValue={hours.pazar} placeholder="Kapalı" className="input" />
           </div>
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -155,7 +155,7 @@ export default async function AdminAyarlarPage() {
               </div>
             </div>
           ))}
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>

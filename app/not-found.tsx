@@ -16,7 +16,7 @@ export default function RootNotFound() {
       </p>
       <Link
         href="/"
-        className="bg-spark-gradient mt-8 flex items-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-graphite transition hover:opacity-90"
+        className="bg-spark-gradient mt-8 flex items-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-white transition hover:opacity-90"
       >
         Anasayfaya Dön <ArrowRight size={16} />
       </Link>

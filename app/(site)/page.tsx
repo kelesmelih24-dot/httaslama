@@ -31,29 +31,29 @@ export default async function HomePage() {
   return (
     <>
       {/* ---------------- HERO ---------------- */}
-      <section className="relative overflow-hidden border-b border-steel2 bg-graphite">
-        <div className="bg-brushed-metal pointer-events-none absolute inset-0 opacity-40" />
+      <section className="relative overflow-hidden border-b border-gray-200 bg-white">
+        <div className="bg-brushed-metal-light pointer-events-none absolute inset-0" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div className="animate-riseIn">
             <div className="dim-line mb-6 w-fit">
               <span className="whitespace-nowrap">EST. ATÖLYE — HASSAS TAŞLAMA</span>
             </div>
-            <h1 className="font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-metal text-balance sm:text-5xl lg:text-6xl">
+            <h1 className="font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-gray-900 text-balance sm:text-5xl lg:text-6xl">
               {settings.hero_title}
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-metalDim">
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-gray-600">
               {settings.hero_subtitle}
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <Link
                 href="/iletisim"
-                className="bg-spark-gradient flex items-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-graphite transition hover:opacity-90"
+                className="bg-spark-gradient flex items-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-white transition hover:opacity-90"
               >
                 Teklif Al <ArrowRight size={16} />
               </Link>
               <Link
                 href="/on-siparis"
-                className="flex items-center gap-2 rounded-sm border border-steel2 px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-metal transition hover:border-spark hover:text-spark"
+                className="flex items-center gap-2 rounded-sm border border-gray-300 px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-gray-900 transition hover:border-spark hover:text-spark"
               >
                 Ön Sipariş Ver
               </Link>

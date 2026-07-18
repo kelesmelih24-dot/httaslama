@@ -48,7 +48,7 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
       <div className="mt-10 flex flex-wrap gap-4">
         <Link
           href="/iletisim"
-          className="bg-spark-gradient flex items-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-graphite"
+          className="bg-spark-gradient flex items-center gap-2 rounded-sm px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wider text-white"
         >
           Bu İş İçin Teklif Al <ArrowRight size={16} />
         </Link>

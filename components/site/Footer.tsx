@@ -16,7 +16,7 @@ export default function Footer({
         <div className="lg:col-span-2">
           <div className="flex items-center gap-2.5 font-display text-lg font-bold tracking-wide text-metal">
             <Logo className="h-8 w-8 shrink-0" />
-            <span><span className="text-metal">HT</span> <span className="text-spark">MAKİNA TAŞLAMA</span></span>
+            <span><span className="text-spark">HT</span> <span className="text-metal">MAKİNA TAŞLAMA</span></span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-metalDim">
             HT Makina Taşlama ekibi ile hassas metal işlemede mikron toleransla çalışan

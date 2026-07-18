@@ -20,7 +20,7 @@ export default async function AdminBlogPage() {
         </summary>
         <form action={upsertPost} className="mt-6 space-y-4">
           <PostFields />
-          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+          <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
             Kaydet
           </button>
         </form>
@@ -45,7 +45,7 @@ export default async function AdminBlogPage() {
                 <input type="hidden" name="id" value={p.id} />
                 <PostFields defaults={p} />
                 <div className="flex items-center justify-between">
-                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+                  <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
                     Kaydet
                   </button>
                   <form action={boundDelete}>

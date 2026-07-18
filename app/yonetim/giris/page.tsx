@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
         <button
           type="submit"
           disabled={pending}
-          className="bg-spark-gradient mt-6 flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-graphite disabled:opacity-60"
+          className="bg-spark-gradient mt-6 flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3 font-display text-sm font-semibold uppercase tracking-wider text-white disabled:opacity-60"
         >
           {pending && <Loader2 className="animate-spin" size={16} />}
           Giriş Yap

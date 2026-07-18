@@ -88,7 +88,7 @@ function Label({ children }: { children: React.ReactNode }) {
 
 function SubmitButton() {
   return (
-    <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-graphite">
+    <button className="bg-spark-gradient rounded-sm px-6 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-white">
       Kaydet
     </button>
   );
