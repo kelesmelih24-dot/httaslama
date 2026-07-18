@@ -39,6 +39,30 @@ select:focus-visible {
   }
 }
 
+/* ---------- Anasayfa açılış animasyonu ---------- */
+@keyframes introLogoIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes introTextIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes introBarFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.intro-logo {
+  animation: introLogoIn 0.7s ease-out forwards;
+}
+.intro-text {
+  opacity: 0;
+  animation: introTextIn 0.7s ease-out 0.35s forwards;
+}
+.intro-bar {
+  animation: introBarFill 3s ease-in-out forwards;
+}
+
 /* ---------- İmza motifi: teknik ölçü çizgisi (dimension line) ---------- */
 .dim-line {
   display: flex;

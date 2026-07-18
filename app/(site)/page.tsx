@@ -15,6 +15,7 @@ import {
 import HeroDiagram from "@/components/site/HeroDiagram";
 import ServiceCard from "@/components/site/ServiceCard";
 import StarRating from "@/components/site/StarRating";
+import IntroSplash from "@/components/site/IntroSplash";
 
 export default async function HomePage() {
   const [services, references, comments, settings, about, gallery, posts, stats] = await Promise.all([
@@ -30,6 +31,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <IntroSplash />
       {/* ---------------- HERO ---------------- */}
       <section className="relative overflow-hidden border-b border-gray-200 bg-white">
         <div className="bg-brushed-metal-light pointer-events-none absolute inset-0" />

@@ -8,9 +8,9 @@ export default function HeroDiagram() {
     >
       <defs>
         <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#D8301F" stopOpacity="0" />
-          <stop offset="50%" stopColor="#A8241A" stopOpacity="1" />
-          <stop offset="100%" stopColor="#D8301F" stopOpacity="0" />
+          <stop offset="0%" stopColor="#D8301F" stopOpacity="0.85" />
+          <stop offset="50%" stopColor="#FF6B3A" stopOpacity="1" />
+          <stop offset="100%" stopColor="#D8301F" stopOpacity="0.85" />
         </linearGradient>
       </defs>
 
@@ -31,11 +31,28 @@ export default function HeroDiagram() {
         </g>
       </g>
 
-      {/* Kıvılcım animasyonu - taşlama temas noktasından */}
+      {/* Kıvılcım animasyonu - taşlama temas noktasından, çok yönlü parlama */}
       <g transform="translate(280,190) rotate(-28)">
-        <rect x="90" y="-2" width="34" height="4" fill="url(#sparkGrad)" className="animate-spark" />
-        <rect x="90" y="4" width="26" height="3" fill="url(#sparkGrad)" className="animate-spark" style={{ animationDelay: "0.4s" }} />
-        <rect x="90" y="-8" width="20" height="3" fill="url(#sparkGrad)" className="animate-spark" style={{ animationDelay: "0.8s" }} />
+        <circle cx="95" cy="0" r="5" fill="#FF6B3A" opacity="0.9">
+          <animate attributeName="r" values="4;9;4" dur="0.7s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="0.7s" repeatCount="indefinite" />
+        </circle>
+
+        <g transform="rotate(0 95 0)">
+          <rect x="92" y="-2.5" width="42" height="5" rx="2.5" fill="url(#sparkGrad)" className="animate-spark" />
+        </g>
+        <g transform="rotate(20 95 0)">
+          <rect x="92" y="-2" width="32" height="4" rx="2" fill="url(#sparkGrad)" className="animate-spark" style={{ animationDelay: "0.3s" }} />
+        </g>
+        <g transform="rotate(-24 95 0)">
+          <rect x="92" y="-1.75" width="28" height="3.5" rx="1.75" fill="url(#sparkGrad)" className="animate-spark" style={{ animationDelay: "0.6s" }} />
+        </g>
+        <g transform="rotate(40 95 0)">
+          <rect x="92" y="-1.5" width="22" height="3" rx="1.5" fill="url(#sparkGrad)" className="animate-spark" style={{ animationDelay: "0.9s" }} />
+        </g>
+        <g transform="rotate(-42 95 0)">
+          <rect x="92" y="-1.5" width="20" height="3" rx="1.5" fill="url(#sparkGrad)" className="animate-spark" style={{ animationDelay: "1.2s" }} />
+        </g>
       </g>
 
       {/* Ölçü çizgisi - çap */}
