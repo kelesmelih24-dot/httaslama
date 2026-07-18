@@ -29,7 +29,7 @@ export async function callGroq(messages: ChatMessage[]): Promise<string> {
     body: JSON.stringify({
       model,
       messages,
-      temperature: 0.5,
+      temperature: 0.3,
       max_tokens: 400,
     }),
   });
