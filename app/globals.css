@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #15171a;
+  color: #c8cdd2;
+}
+
+::selection {
+  background-color: #ff5a1f;
+  color: #15171a;
+}
+
+/* Klavye odağı görünürlüğü */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #ff5a1f;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- İmza motifi: teknik ölçü çizgisi (dimension line) ---------- */
+.dim-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8a9096;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.dim-line::before,
+.dim-line::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    #8a9096 0,
+    #8a9096 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+.dim-line::before {
+  border-left: 1px solid #8a9096;
+}
+.dim-line::after {
+  border-right: 1px solid #8a9096;
+}
+
+.spec-card {
+  position: relative;
+  background: #1c1f23;
+  border: 1px solid #2e3339;
+}
+.spec-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff5a1f, #ffa630);
+  transition: width 0.35s ease;
+}
+.spec-card:hover::before {
+  width: 100%;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@layer components {
+  .input {
+    @apply w-full rounded-sm border border-steel2 bg-steel px-3 py-2.5 text-sm text-metal placeholder:text-metalDim/60 focus:border-spark;
+  }
+}

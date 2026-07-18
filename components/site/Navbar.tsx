@@ -1,0 +1,87 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { Menu, X, Phone } from "lucide-react";
+
+const links = [
+  { href: "/", label: "Anasayfa" },
+  { href: "/hizmetler", label: "Hizmetler" },
+  { href: "/referanslar", label: "Referanslar" },
+  { href: "/on-siparis", label: "Ön Sipariş" },
+  { href: "/yorumlar", label: "Yorumlar" },
+  { href: "/iletisim", label: "İletişim" },
+];
+
+export default function Navbar({ phone }: { phone: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-steel2 bg-graphite/95 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+        <Link href="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-wide text-metal">
+          <span className="text-spark">HT</span> MAKİNA TAŞLAMA
+        </Link>
+
+        <nav className="hidden items-center gap-8 lg:flex">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="font-display text-sm font-medium uppercase tracking-wider text-metalDim transition hover:text-spark"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden items-center gap-4 lg:flex">
+          <a
+            href={`tel:${phone.replace(/\s/g, "")}`}
+            className="flex items-center gap-2 text-sm font-medium text-metal"
+          >
+            <Phone size={16} className="text-spark" /> {phone}
+          </a>
+          <Link
+            href="/iletisim"
+            className="bg-spark-gradient rounded-sm px-5 py-2.5 font-display text-sm font-semibold uppercase tracking-wider text-graphite transition hover:opacity-90"
+          >
+            Teklif Al
+          </Link>
+        </div>
+
+        <button
+          className="text-metal lg:hidden"
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Menüyü aç/kapat"
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
+
+      {open && (
+        <div className="border-t border-steel2 px-5 pb-6 lg:hidden">
+          <nav className="flex flex-col gap-1 pt-4">
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="rounded px-2 py-3 font-display text-sm font-medium uppercase tracking-wider text-metalDim hover:bg-steel hover:text-spark"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              href="/iletisim"
+              onClick={() => setOpen(false)}
+              className="bg-spark-gradient mt-3 rounded-sm px-5 py-3 text-center font-display text-sm font-semibold uppercase tracking-wider text-graphite"
+            >
+              Teklif Al
+            </Link>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}

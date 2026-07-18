@@ -1,0 +1,68 @@
+export type Service = {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  detail: string | null;
+  tolerance_note: string | null;
+  order_index: number;
+  created_at: string;
+};
+
+export type Reference = {
+  id: string;
+  client_name: string;
+  project_title: string;
+  description: string | null;
+  image_url: string | null;
+  order_index: number;
+  created_at: string;
+};
+
+export type QuoteStatus = "yeni" | "iletisimde" | "tamamlandi" | "iptal";
+
+export type Quote = {
+  id: string;
+  full_name: string;
+  phone: string;
+  email: string | null;
+  service_type: string | null;
+  description: string;
+  status: QuoteStatus;
+  created_at: string;
+};
+
+export type PreorderStatus = "yeni" | "onaylandi" | "uretimde" | "tamamlandi" | "iptal";
+
+export type Preorder = {
+  id: string;
+  full_name: string;
+  phone: string;
+  email: string | null;
+  category: string;
+  part_detail: string | null;
+  material: string | null;
+  quantity: number | null;
+  preferred_date: string | null;
+  status: PreorderStatus;
+  created_at: string;
+};
+
+export type Comment = {
+  id: string;
+  name: string;
+  message: string;
+  rating: number;
+  approved: boolean;
+  created_at: string;
+};
+
+export type SiteSettings = {
+  phone: string;
+  whatsapp: string;
+  email: string;
+  address: string;
+  hero_title: string;
+  hero_subtitle: string;
+  about_text: string;
+};
