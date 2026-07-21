@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { supabaseAdmin } from "@/lib/supabase";
 import { sendTelegramMessage } from "@/lib/telegram";
+import { notifyAdmins } from "@/lib/push";
 
 type ActionResult = { ok: true } | { ok: false; error: string };
 
@@ -114,6 +115,12 @@ export async function submitQuote(formData: FormData): Promise<ActionResult> {
       `📝 ${parsed.data.description}`
   );
 
+  await notifyAdmins(
+    "🔥 Yeni Teklif Talebi",
+    `${parsed.data.full_name}${parsed.data.company_name ? ` (${parsed.data.company_name})` : ""} - ${parsed.data.service_type || "Genel"}`,
+    "/yonetim/teklifler"
+  );
+
   return { ok: true };
 }
 
@@ -183,6 +190,12 @@ export async function submitPreorder(formData: FormData): Promise<ActionResult> 
       (parsed.data.preferred_date ? `📅 Tercih edilen tarih: ${parsed.data.preferred_date}` : "")
   );
 
+  await notifyAdmins(
+    "📦 Yeni Ön Sipariş",
+    `${parsed.data.full_name} - ${parsed.data.category}`,
+    "/yonetim/on-siparisler"
+  );
+
   return { ok: true };
 }
 
@@ -220,6 +233,8 @@ export async function submitComment(formData: FormData): Promise<ActionResult> {
   await sendTelegramMessage(
     `💬 <b>Yeni Yorum (onay bekliyor)</b>\n${parsed.data.name}: ${parsed.data.message}`
   );
+
+  await notifyAdmins("💬 Yeni Yorum", `${parsed.data.name}: ${parsed.data.message}`, "/yonetim/yorumlar");
 
   return { ok: true };
 }
