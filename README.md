@@ -205,3 +205,42 @@ talimatlandırılmıştır.
 **Maliyet koruması:** Bot, bir oturumda en fazla 20 mesajla sınırlıdır ve
 her istekte sohbet geçmişinin yalnızca son birkaç mesajı gönderilir; bu,
 beklenmedik yüksek kullanım/maliyeti önler.
+
+## Admin Paneli Anlık Bildirimleri (Push Notifications)
+
+Yeni bir teklif, ön sipariş veya yorum geldiğinde, admin panelini yükleyen
+cihazlara (telefon/bilgisayar) tarayıcı/uygulama kapalıyken bile anlık
+bildirim gider — WhatsApp/Instagram'daki gibi uygulama simgesinde kırmızı
+sayı rozeti de görünür.
+
+### Kurulum
+
+1. Supabase SQL Editor'da `supabase/migrate_v5_push_notifications.sql`'i çalıştırın.
+2. Vercel'de **Environment Variables** kısmına ekleyin:
+   - `NEXT_PUBLIC_VAPID_PUBLIC_KEY`
+   - `VAPID_PRIVATE_KEY`
+   - `VAPID_SUBJECT` → `mailto:` ile başlayan bir e-posta adresi
+
+   Bu projeyle birlikte sizin için gerçek bir anahtar çifti üretildi;
+   Claude ile olan sohbetinizde paylaşılan değerleri kullanabilirsiniz.
+   Anahtarları kendiniz yeniden üretmek isterseniz:
+   ```
+   npx web-push generate-vapid-keys
+   ```
+3. Redeploy edin.
+
+### Kullanımı
+
+1. Admin panelinde giriş yapın, sol menüdeki **"Bildirimleri Etkinleştir"**
+   butonuna basın, tarayıcının izin isteğini onaylayın.
+2. Telefonda kullanıyorsanız önce PWA'yı yüklemeniz (**"Uygulamayı Yükle"**)
+   ve ardından bildirimleri o kurulu uygulama içinden etkinleştirmeniz önerilir
+   — bu şekilde uygulama simgesinde rozet sayısı da görünür.
+3. Her cihaz/tarayıcı ayrı ayrı "Bildirimleri Etkinleştir" demelidir;
+   birden fazla cihazdan (telefon + bilgisayar) bildirim almak isterseniz
+   her birinde ayrı ayrı etkinleştirin.
+
+**Not:** iOS'ta (iPhone) push bildirimleri yalnızca PWA ana ekrana
+eklendikten SONRA çalışır (Safari'de doğrudan tarayıcıdan çalışmaz) —
+Apple'ın kısıtlamasıdır. Önce "Ana Ekrana Ekle", sonra kurulu uygulamayı
+açıp bildirimleri etkinleştirin.

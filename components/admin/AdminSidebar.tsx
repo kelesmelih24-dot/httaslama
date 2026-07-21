@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { adminLogout } from "@/lib/actions/auth";
 import InstallAppButton from "@/components/admin/InstallAppButton";
+import PushNotificationButton from "@/components/admin/PushNotificationButton";
 
 const items = [
   { href: "/yonetim", label: "Panel", icon: LayoutDashboard },
@@ -61,6 +62,7 @@ export default function AdminSidebar() {
       </nav>
 
       <div className="border-t border-steel2 p-3">
+        <PushNotificationButton />
         <InstallAppButton />
         <button
           onClick={() =>
