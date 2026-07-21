@@ -205,26 +205,3 @@ talimatlandırılmıştır.
 **Maliyet koruması:** Bot, bir oturumda en fazla 20 mesajla sınırlıdır ve
 her istekte sohbet geçmişinin yalnızca son birkaç mesajı gönderilir; bu,
 beklenmedik yüksek kullanım/maliyeti önler.
-
-## Yönetim Panelini Ayrı Bir Alan Adında Yayınlama (opsiyonel)
-
-Admin panelini ayrı bir alan adında (örn. `htmakinataslama.online`) yayınlamak isterseniz:
-
-1. Vercel'de **Settings → Domains** kısmından bu ikinci alan adını da aynı
-   projeye ekleyin (DNS kayıtlarını domain sağlayıcınızda ayarlamanız gerekir,
-   ana domain ile aynı adımlar).
-2. **Environment Variables** kısmına `ADMIN_DOMAIN` değişkenini ekleyin,
-   değeri bu ikinci alan adı olsun (örn. `htmakinataslama.online`, `https://` veya `www.` yazmadan).
-3. Redeploy edin.
-
-Bundan sonra:
-- `htmakinataslama.online` adresine giden **her istek otomatik olarak
-  `/yonetim`'e yönlenir** (kök adres dahil) — yani bu alan adı artık
-  sadece yönetim paneli olarak çalışır.
-- Ana sitenizde (`NEXT_PUBLIC_SITE_URL` ile tanımlı alan adı, örn.
-  `htmakinataslama.com`) **`/yonetim` adresi tamamen erişilemez hale gelir**
-  — biri bu adresi bilse bile anasayfaya yönlendirilir.
-
-`ADMIN_DOMAIN` tanımlı değilse (veya henüz o alan adını eklemediyseniz)
-sistem eskisi gibi çalışmaya devam eder — `/yonetim` her zamanki gibi ana
-alan adınızdan da erişilebilir olur, hiçbir şey bozulmaz.
