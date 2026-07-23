@@ -29,9 +29,17 @@ export default function PushNotificationButton() {
       setStatus("denied");
       return;
     }
-    const reg = await navigator.serviceWorker.ready;
-    const existing = await reg.pushManager.getSubscription();
-    setStatus(existing ? "on" : "off");
+    try {
+      const reg = await Promise.race([
+        navigator.serviceWorker.ready,
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 5000)),
+      ]);
+      const existing = await reg.pushManager.getSubscription();
+      setStatus(existing ? "on" : "off");
+    } catch {
+      // service worker 5 saniyede hazır olmadıysa yine de butonu kullanılabilir yap
+      setStatus("off");
+    }
   }
 
   async function handleEnable() {
@@ -42,7 +50,12 @@ export default function PushNotificationButton() {
         setStatus(permission === "denied" ? "denied" : "off");
         return;
       }
-      const reg = await navigator.serviceWorker.ready;
+      const reg = await Promise.race([
+        navigator.serviceWorker.ready,
+        new Promise<ServiceWorkerRegistration>((_, reject) =>
+          setTimeout(() => reject(new Error("timeout")), 8000)
+        ),
+      ]);
       const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
       if (!publicKey) {
         console.error("NEXT_PUBLIC_VAPID_PUBLIC_KEY tanımlı değil.");
