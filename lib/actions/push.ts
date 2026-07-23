@@ -19,7 +19,7 @@ export async function subscribeToPush(sub: PushSubscriptionJSON) {
   );
   if (error) {
     console.error("Push aboneliği kaydedilemedi:", error);
-    return { ok: false };
+    return { ok: false, error: error.message };
   }
   return { ok: true };
 }

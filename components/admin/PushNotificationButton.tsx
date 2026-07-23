@@ -42,8 +42,11 @@ export default function PushNotificationButton() {
     }
   }
 
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
   async function handleEnable() {
     setStatus("loading");
+    setErrorMsg(null);
     try {
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
@@ -58,7 +61,7 @@ export default function PushNotificationButton() {
       ]);
       const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
       if (!publicKey) {
-        console.error("NEXT_PUBLIC_VAPID_PUBLIC_KEY tanımlı değil.");
+        setErrorMsg("VAPID anahtarı tanımlı değil (site yeniden deploy edilmemiş olabilir).");
         setStatus("off");
         return;
       }
@@ -67,10 +70,20 @@ export default function PushNotificationButton() {
         applicationServerKey: urlBase64ToUint8Array(publicKey),
       });
       const json = sub.toJSON() as { endpoint: string; keys: { p256dh: string; auth: string } };
-      await subscribeToPush(json);
+      const result = await subscribeToPush(json);
+      if (!result?.ok) {
+        setErrorMsg(
+          `Abonelik tarayıcıda oluşturuldu ama sunucuya kaydedilemedi${
+            result?.error ? `: ${result.error}` : ""
+          }`
+        );
+        setStatus("off");
+        return;
+      }
       setStatus("on");
-    } catch (err) {
+    } catch (err: any) {
       console.error("Bildirim aboneliği başarısız:", err);
+      setErrorMsg(err?.message === "timeout" ? "Service worker hazır olmadı, sayfayı yenileyip tekrar deneyin." : "Bildirim aboneliği başarısız oldu.");
       setStatus("off");
     }
   }
@@ -112,12 +125,17 @@ export default function PushNotificationButton() {
   }
 
   return (
-    <button
-      onClick={handleEnable}
-      disabled={status === "loading"}
-      className="flex w-full items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-metalDim transition hover:bg-graphite hover:text-spark disabled:opacity-50"
-    >
-      <Bell size={17} /> Bildirimleri Etkinleştir
-    </button>
+    <div>
+      <button
+        onClick={handleEnable}
+        disabled={status === "loading"}
+        className="flex w-full items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-metalDim transition hover:bg-graphite hover:text-spark disabled:opacity-50"
+      >
+        <Bell size={17} /> Bildirimleri Etkinleştir
+      </button>
+      {errorMsg && (
+        <p className="px-3 pb-2 text-xs leading-snug text-spark">{errorMsg}</p>
+      )}
+    </div>
   );
 }
