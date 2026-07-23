@@ -24,21 +24,37 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.htmakinataslama.com"),
-  title: "HT Makina Taşlama | Delik, Silindirik ve Satıh Taşlama",
+  title: {
+    default: "HT Makina Taşlama | Ankara Delik, Silindirik ve Satıh Taşlama Atölyesi",
+    template: "%s | HT Makina Taşlama Ankara",
+  },
   description:
-    "Uzman ekibimiz; delik taşlama, silindirik taşlama, satıh (yüzey) taşlama ve çapak alma hizmetlerinde mikron hassasiyetinde çözüm sunar. Teklif alın veya ön sipariş verin.",
+    "Ankara Yenimahalle'de hizmet veren HT Makina Taşlama; delik taşlama, silindirik taşlama, satıh (yüzey) taşlama, puntalı/puntasız taşlama ve çapak alma hizmetlerinde mikron hassasiyetinde çözüm sunar. Teklif alın veya ön sipariş verin.",
+  keywords: [
+    "taşlama Ankara",
+    "silindirik taşlama Ankara",
+    "yüzey taşlama Ankara",
+    "delik taşlama Ankara",
+    "puntasız taşlama",
+    "puntalı taşlama",
+    "İvedik OSB taşlama atölyesi",
+    "Yenimahalle taşlama",
+  ],
   openGraph: {
-    title: "HT Makina Taşlama",
-    description: "Mikron hassasiyetinde delik, silindirik ve satıh taşlama hizmetleri.",
+    title: "HT Makina Taşlama | Ankara Taşlama Atölyesi",
+    description: "Ankara Yenimahalle'de mikron hassasiyetinde delik, silindirik ve satıh taşlama hizmetleri.",
     locale: "tr_TR",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "HT Makina Taşlama" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HT Makina Taşlama",
-    description: "Mikron hassasiyetinde delik, silindirik ve satıh taşlama hizmetleri.",
+    title: "HT Makina Taşlama | Ankara Taşlama Atölyesi",
+    description: "Ankara Yenimahalle'de mikron hassasiyetinde delik, silindirik ve satıh taşlama hizmetleri.",
     images: ["/og-image.png"],
+  },
+  verification: {
+    google: "qnH6Ry4naMZ3R5KiyFX_ViPeSS2vneWK65IHfUBDGc0",
   },
 };
 

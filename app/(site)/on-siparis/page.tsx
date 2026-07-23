@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { getServices } from "@/lib/data";
 import PreorderWizard from "@/components/site/PreorderWizard";
 
-export const metadata = { title: "Ön Sipariş | HT Makina Taşlama" };
+export const metadata = { title: "Ön Sipariş" };
 
 export default async function OnSiparisPage() {
   const services = await getServices();

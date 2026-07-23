@@ -43,7 +43,14 @@ export function buildLocalBusinessSchema(settings: SiteSettings, hours: HoursSet
     address: {
       "@type": "PostalAddress",
       streetAddress: settings.address,
+      addressLocality: "Yenimahalle",
+      addressRegion: "Ankara",
+      postalCode: "06374",
       addressCountry: "TR",
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Ankara",
     },
     priceRange: "$$",
     openingHoursSpecification,

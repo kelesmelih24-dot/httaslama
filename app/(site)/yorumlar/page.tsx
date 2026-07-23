@@ -4,7 +4,7 @@ import { getApprovedComments } from "@/lib/data";
 import CommentForm from "@/components/site/CommentForm";
 import StarRating from "@/components/site/StarRating";
 
-export const metadata = { title: "Yorumlar | HT Makina Taşlama" };
+export const metadata = { title: "Yorumlar" };
 
 export default async function YorumlarPage() {
   const comments = await getApprovedComments();

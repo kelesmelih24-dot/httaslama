@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { getSiteSettings } from "@/lib/data";
 
-export const metadata = { title: "Gizlilik Politikası | HT Makina Taşlama" };
+export const metadata = { title: "Gizlilik Politikası" };
 
 export default async function GizlilikPolitikasiPage() {
   const settings = await getSiteSettings();

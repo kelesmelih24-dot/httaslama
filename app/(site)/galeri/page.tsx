@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { getGallery } from "@/lib/data";
 import GalleryGrid from "@/components/site/GalleryGrid";
 
-export const metadata = { title: "Galeri | HT Makina Taşlama" };
+export const metadata = { title: "Galeri" };
 
 export default async function GaleriPage() {
   const items = await getGallery();

@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { getServices } from "@/lib/data";
 import ServiceCard from "@/components/site/ServiceCard";
 
-export const metadata = { title: "Hizmetlerimiz | HT Makina Taşlama" };
+export const metadata = { title: "Hizmetlerimiz" };
 
 export default async function HizmetlerPage() {
   const services = await getServices();

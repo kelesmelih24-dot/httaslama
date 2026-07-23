@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { getSiteSettings } from "@/lib/data";
 
-export const metadata = { title: "Kullanım Şartları | HT Makina Taşlama" };
+export const metadata = { title: "Kullanım Şartları" };
 
 export default async function KullanimSartlariPage() {
   const settings = await getSiteSettings();

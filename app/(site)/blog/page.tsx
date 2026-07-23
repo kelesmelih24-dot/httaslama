@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import { getPublishedPosts } from "@/lib/data";
 
-export const metadata = { title: "Blog | HT Makina Taşlama" };
+export const metadata = { title: "Blog" };
 
 export default async function BlogPage() {
   const posts = await getPublishedPosts();

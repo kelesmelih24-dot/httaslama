@@ -5,7 +5,7 @@ import { getServices, getSiteSettings, getHoursSettings } from "@/lib/data";
 import QuoteForm from "@/components/site/QuoteForm";
 import MapEmbed from "@/components/site/MapEmbed";
 
-export const metadata = { title: "İletişim & Teklif Al | HT Makina Taşlama" };
+export const metadata = { title: "İletişim & Teklif Al" };
 
 export default async function IletisimPage() {
   const [services, settings, hours] = await Promise.all([

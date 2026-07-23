@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { getReferences } from "@/lib/data";
 
-export const metadata = { title: "Referanslar | HT Makina Taşlama" };
+export const metadata = { title: "Referanslar" };
 
 export default async function ReferanslarPage() {
   const references = await getReferences();

@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const service = await getServiceBySlug(params.slug);
   if (!service) return {};
   return {
-    title: `${service.title} | HT Makina Taşlama`,
+    title: `${service.title}`,
     description: service.summary,
   };
 }

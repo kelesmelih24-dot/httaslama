@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { Target, Eye, ShieldCheck, BadgeCheck } from "lucide-react";
 import { getAboutSettings } from "@/lib/data";
 
-export const metadata = { title: "Hakkımızda | HT Makina Taşlama" };
+export const metadata = { title: "Hakkımızda" };
 
 export default async function HakkimizdaPage() {
   const about = await getAboutSettings();
