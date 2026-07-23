@@ -14,6 +14,12 @@ export default function InstallAppButton() {
       (window.navigator as any).standalone === true;
     setInstalled(isStandalone);
 
+    // Sayfa hidrate olmadan önce yakalanmış bir sinyal varsa onu kullan
+    const early = (window as any).__deferredInstallPrompt;
+    if (early) {
+      setDeferredPrompt(early);
+    }
+
     function handleBeforeInstall(e: Event) {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -50,6 +56,8 @@ export default function InstallAppButton() {
     );
   }
 
+  const isIOS = typeof navigator !== "undefined" && /iPhone|iPad|iPod/.test(navigator.userAgent);
+
   return (
     <div className="relative">
       <button
@@ -60,8 +68,20 @@ export default function InstallAppButton() {
       </button>
       {showHelp && (
         <div className="absolute bottom-full left-0 mb-2 w-64 rounded-sm border border-steel2 bg-graphite p-3 text-xs leading-relaxed text-metalDim shadow-lg">
-          Bu tarayıcıda otomatik yükleme desteklenmiyor. iPhone/iPad&apos;de:
-          Paylaş ikonuna dokunun → &quot;Ana Ekrana Ekle&quot;yi seçin.
+          {isIOS ? (
+            <>
+              Bu tarayıcıda otomatik yükleme desteklenmiyor. iPhone/iPad&apos;de:
+              Paylaş ikonuna dokunun → &quot;Ana Ekrana Ekle&quot;yi seçin.
+            </>
+          ) : (
+            <>
+              Otomatik yükleme penceresi şu an açılamadı. Tarayıcının adres
+              çubuğundaki yükleme simgesine (⊕ veya bilgisayar ikonu) tıklayıp
+              deneyebilir, ya da tarayıcı menüsünden &quot;Uygulamayı Yükle&quot; /
+              &quot;Ana ekrana ekle&quot; seçeneğini arayabilirsiniz. Uygulama zaten
+              yüklüyse bu buton gerekmez.
+            </>
+          )}
         </div>
       )}
     </div>
